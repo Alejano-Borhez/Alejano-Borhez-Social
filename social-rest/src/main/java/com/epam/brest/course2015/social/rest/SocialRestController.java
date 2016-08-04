@@ -132,7 +132,7 @@ public class SocialRestController {
     @RequestMapping(value = "/userdto",
             method = RequestMethod.POST)
     @Logged
-    @SocialSecured
+    @SocialSecured(roles = {"USER", "ADMIN", "TEMP"})
     public SocialDto getUserDto(@RequestBody String token) {
             return socialService.getSocialUsersDto();
     }
@@ -179,7 +179,8 @@ public class SocialRestController {
     @RequestMapping("/token")
     @Logged
     public String getToken(HttpServletRequest req,
-            @RequestParam("login") String login) {
+                           @RequestParam("login") String login) {
+
         String role = req.getHeader("Role");
 
         User user = socialService.getUserByLogin(login);
@@ -213,6 +214,12 @@ public class SocialRestController {
             newToken = socialSecurity.generateSecurityToken(socialSecurity.getUserId(token), roleUser);
         }
         return newToken;
+    }
+
+    @RequestMapping("user/byEmail")
+    @Logged
+    public User getUserByEmail(@RequestParam("email") String email) {
+        return socialService.getUserByEmail(email);
     }
 
     @SubscribeMapping(value = "/hello")

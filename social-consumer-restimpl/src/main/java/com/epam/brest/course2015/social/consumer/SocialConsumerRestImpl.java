@@ -224,6 +224,19 @@ public class SocialConsumerRestImpl implements SocialConsumer {
 
     @Override
     @Logged
+    public User emailApprove(String email) {
+        UriComponents uri = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .pathSegment("user")
+                .pathSegment("byEmail")
+                .queryParam("email", email)
+                .build();
+
+        return restTemplate.getForObject(uri.toUriString(), User.class);
+    }
+
+    @Override
+    @Logged
     public boolean isUserInDB(User user) {
         UriComponents uri = UriComponentsBuilder
                 .fromHttpUrl(restPrefix)

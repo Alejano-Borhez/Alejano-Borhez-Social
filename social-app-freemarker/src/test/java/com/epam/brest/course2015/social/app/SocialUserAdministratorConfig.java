@@ -4,6 +4,7 @@ import com.epam.brest.course2015.social.consumer.SocialConsumer;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.mail.SocialMail;
 import com.epam.brest.course2015.social.test.Logged;
+import com.epam.brest.course2015.social.test.SocialLogger;
 import org.easymock.EasyMock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,29 +27,29 @@ import java.util.Map;
 @ComponentScan(basePackageClasses = {SocialUserAdministrator.class})
 class SocialUserAdministratorConfig {
     @Bean
-    PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
+    static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
         PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
         configurer.setLocations(new ClassPathResource("test-data.properties", User.class.getClassLoader()),
                                 new ClassPathResource("social-app.properties"),
-                                new ClassPathResource("cdn.properties"));
+                                new ClassPathResource("cdn.properties"),
+                                new ClassPathResource("security-roles.properties"));
         return configurer;
     }
 
-
-
     @Bean
-    @Logged
     SocialConsumer socialConsumer() {
         return EasyMock.createMock(SocialConsumer.class);
     }
 
     @Bean
-    @Logged
     SocialMail socialMail() {
         return EasyMock.createMock(SocialMail.class);
     }
 
-
+    @Bean
+    SocialLogger socialLogger() {
+        return new SocialLogger();
+    }
 
 
 }

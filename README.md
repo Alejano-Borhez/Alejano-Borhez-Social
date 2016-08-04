@@ -4,9 +4,9 @@ You can manage a list of users and also a friendship between users.
 Web-application has a user-friendly web-interface.
 
 1. Before running this project you should check for system requirements:
-- [Java RE 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) or later
-- [Gradle 2.14](https://gradle.org/gradle-download/) or later
-- [Docker 1.11](https://docs.docker.com/engine/installation/) or later 
+ [Java RE 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) or later
+ [Gradle 2.14](https://gradle.org/gradle-download/) or later
+ [Docker 1.11](https://docs.docker.com/engine/installation/) or later 
 
 2. Clone this project and run
 ```sh

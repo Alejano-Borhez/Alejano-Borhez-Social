@@ -219,6 +219,17 @@ public class SocialServiceImpl implements SocialService {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        Assert.notNull(email, notNullUser);
+        try {
+            return userDao.getUserByEmail(email);
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     @Logged
     public List<User> getAllUsers() {
         return userDao.getAllUsers();

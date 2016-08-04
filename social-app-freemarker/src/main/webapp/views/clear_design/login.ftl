@@ -47,7 +47,7 @@
 
 					<h3>Forgot Password?</h3>
 					<p>
-						No problem, <a href="#">click here</a> to get a new password.
+						No problem, <a href="<@spring.url "/admin/password/requestNew"/>">click here</a> to get a new password.
 					</p>
 
 				</div><!--/span-->

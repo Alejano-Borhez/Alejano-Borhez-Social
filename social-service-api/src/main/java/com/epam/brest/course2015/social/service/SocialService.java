@@ -24,6 +24,7 @@ public interface SocialService {
     void renameImage(Integer id, String name);
     User getUserById(Integer id);
     User getUserByLogin(String login);
+    User getUserByEmail(String email);
     List<User> getAllUsers();
     List<User> getAllUsersByDate(Date dateMin, Date dateMax);
     List<User> getFriends(Integer id);

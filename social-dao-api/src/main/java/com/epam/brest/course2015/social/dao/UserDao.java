@@ -24,6 +24,7 @@ public interface UserDao {
     List<User> getAllUsers(Date dateMin, Date dateMax);
     User getUserById(Integer id);
     User getUserByLogin(String login);
+    User getUserByEmail(String email);
     Integer getCountOfUsers();
     Integer getCountOfUserFriends(Integer id);
 

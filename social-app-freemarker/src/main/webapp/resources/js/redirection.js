@@ -4,7 +4,7 @@ setTimeout ( function() {
                 if (url != null) {
                 window.location = $.cookie("Referer");
                 } else {
-                window.location = "user";
+                window.location = "../user";
                 };
 
     }, 10000);

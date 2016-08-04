@@ -29,6 +29,7 @@ public class SocialLogger {
     public Object log(ProceedingJoinPoint joinPoint,
                       Logged logged) throws Throwable {
         String clazz = joinPoint.getSignature().getDeclaringTypeName();
+        clazz = clazz.substring(clazz.lastIndexOf(".")+1);
         String method = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
         boolean returnVoid = joinPoint.getSignature()

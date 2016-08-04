@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.jws.soap.SOAPBinding;
 import java.net.URI;
 
 import static org.easymock.EasyMock.*;
@@ -32,6 +33,18 @@ public class SocialConsumerRestImplTest {
     private String testToken;
     @Value("${test.firstName}")
     private String testName;
+    @Value("${test.firstName}")
+    private String firstName;
+    @Value("${test.lastName}")
+    private String lastName;
+    @Value("${test.age}")
+    private Integer age;
+    @Value("${test.password}")
+    private String password;
+    @Value("${test.email}")
+    private String email;
+    @Value("${test.userId1}")
+    private Integer userId;
     @Value("${test.login}")
     private String login;
     @Value("${test.role1}")
@@ -138,19 +151,47 @@ public class SocialConsumerRestImplTest {
         assertTrue(test);
     }
 
-//    @Test
+    @Test
     public void changePassword() throws Exception {
+        UriComponents uriComponents = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .pathSegment("user")
+                .pathSegment("{action}")
+                .queryParam("param", password)
+                .buildAndExpand("password");
+        expect(restTemplate.postForObject(uriComponents.toUriString(), testToken, Object.class)).andReturn(new Object());
+        replay(restTemplate);
 
+        socialConsumer.changePassword(testToken, password);
     }
 
-//    @Test
+    @Test
     public void changeLastName() throws Exception {
+        UriComponents uriComponents = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .pathSegment("user")
+                .pathSegment("{action}")
+                .queryParam("param", lastName)
+                .buildAndExpand("lastname");
+        expect(restTemplate.postForObject(uriComponents.toUriString(), testToken, Object.class)).andReturn(new Object());
+        replay(restTemplate);
 
+        socialConsumer.changeLastName(testToken, lastName);
     }
 
-//    @Test
+    @Test
     public void getAllNoFriendsOfAUser() throws Exception {
+        UriComponents uriComponents = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .path("/nofriendsdto")
+                .build();
 
+        String url = uriComponents.toUriString();
+
+        expect(restTemplate.postForObject(url, testToken, SocialDto.class)).andReturn(new SocialDto());
+        replay(restTemplate);
+
+        socialConsumer.getAllNoFriendsOfAUser(testToken);
     }
 
     @Test
@@ -161,9 +202,20 @@ public class SocialConsumerRestImplTest {
         assertTrue(socialConsumer.isUserInDB(new User(testId)));
     }
 
-//    @Test
+    @Test
     public void isTokenValid() throws Exception {
+        UriComponents uri = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .pathSegment("token")
+                .pathSegment("validate")
+                .build();
 
+        String url = uri.toUriString();
+
+        expect(restTemplate.postForObject(url, testToken, Boolean.class)).andReturn(true);
+        replay(restTemplate);
+
+        socialConsumer.isTokenValid(testToken);
     }
 
     @Test
@@ -183,19 +235,76 @@ public class SocialConsumerRestImplTest {
         assertTrue(socialConsumer.getToken(login, role).equals(testToken));
     }
 
-//    @Test
+    @Test
     public void getUserDto() throws Exception {
+        UriComponents uri = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .path("friendsdto")
+                .build();
+
+        String url = uri.toUriString();
+        SocialDto dto = new SocialDto();
+
+        expect(restTemplate.postForObject(url, testToken, SocialDto.class)).andReturn(dto);
+        replay(restTemplate);
+
+        SocialDto newDto = socialConsumer.getUserDto(testToken);
+
+        assertEquals(newDto, dto);
 
     }
 
-//    @Test
+    @Test
     public void getAllFriends() throws Exception {
+        UriComponents uri = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .path("friendsdto")
+                .build();
 
+        String url = uri.toUriString();
+        SocialDto dto = new SocialDto();
+
+        expect(restTemplate.postForObject(url, testToken, SocialDto.class)).andReturn(dto);
+        replay(restTemplate);
+
+        SocialDto newDto = socialConsumer.getAllFriends(testToken);
+
+        assertEquals(newDto, dto);
     }
 
-//    @Test
+    @Test
     public void getAllUsers() throws Exception {
+        UriComponents uri = UriComponentsBuilder
+                .fromHttpUrl(restPrefix)
+                .path("userdto")
+                .build();
 
+        String url = uri.toUriString();
+        SocialDto dto = new SocialDto();
+
+        expect(restTemplate.postForObject(url, testToken, SocialDto.class)).andReturn(dto);
+        replay(restTemplate);
+
+        SocialDto newDto = socialConsumer.getAllUsers(testToken);
+
+        assertEquals(newDto, dto);
     }
 
+    @Test
+    public void emailApprove() throws Exception {
+         UriComponents uri = UriComponentsBuilder
+        .fromHttpUrl(restPrefix)
+        .pathSegment("user")
+        .pathSegment("byEmail")
+        .queryParam("email", email)
+        .build();
+
+        expect(restTemplate.getForObject(uri.toUriString(), User.class)).andReturn(new User(testId));
+
+        replay(restTemplate);
+
+        User newUser = socialConsumer.emailApprove(email);
+        assertEquals(newUser.getUserId(), testId);
+
+    }
 }

@@ -39,6 +39,7 @@
             <list>
                 <value>classpath:social-app.properties</value>
                 <value>classpath:cdn.properties</value>
+                <value>classpath:security-roles.properties</value>
             </list>
         </property>
     </bean>

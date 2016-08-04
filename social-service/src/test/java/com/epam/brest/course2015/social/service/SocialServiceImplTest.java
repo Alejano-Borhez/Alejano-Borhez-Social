@@ -587,6 +587,11 @@ public class SocialServiceImplTest {
 
     }
 
-
-
+    @Test
+    public void testGetUserByEmail() throws Exception {
+        TEST_USER_1.setUserId(null);
+        Integer userId = socialService.addUser(TEST_USER_1);
+        User newUser = socialService.getUserByEmail("test1@mail.com");
+        assertEquals(TEST_USER_1, newUser);
+    }
 }

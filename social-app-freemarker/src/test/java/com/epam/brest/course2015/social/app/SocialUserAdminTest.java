@@ -10,28 +10,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.CookieResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.ViewResolver;
 
-import javax.annotation.Resource;
-
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -74,7 +68,7 @@ public class SocialUserAdminTest {
 
 //    Testing WebApp context
     @Autowired
-    WebApplicationContext webAppContext;
+    private WebApplicationContext webAppContext;
 
 //    MockMVC infrastructure
     private MockMvc mockMvc;
@@ -85,12 +79,16 @@ public class SocialUserAdminTest {
     @Autowired
     private SocialMail socialMail;
     private User user;
+    private SocialDto dto;
     private MultiValueMap<String, String> userMap;
 
     @Before
     public void setUp() throws Exception {
         userMap = new LinkedMultiValueMap<>();
         user = new User(login, password, firstName, lastName, age, email);
+        dto = new SocialDto();
+        dto.setUser(user);
+        dto.setUsers(Arrays.asList(user, user));
 
         Map<String, String> map = new HashMap<>();
         map.put("login", user.getLogin());
@@ -139,7 +137,6 @@ public class SocialUserAdminTest {
                 .andExpect(content().encoding("UTF-8"))
                 ;
     }
-
 
     @Test
     public void testSubmitFail() throws Exception {
@@ -229,6 +226,148 @@ public class SocialUserAdminTest {
                 .andExpect(content().encoding("UTF-8"))
                 .andExpect(content().contentType(MediaType.TEXT_HTML + ";charset=UTF-8"))
         ;
+    }
+
+    @Test
+    public void testRequestNewPassword() throws Exception {
+        String testUrl = "/admin/password/requestNew";
+
+        replay(socialConsumer, socialMail);
+
+        mockMvc.perform(
+                get(testUrl)
+                )
+                .andDo(print())
+                .andExpect(view().name("password/request"))
+                .andExpect(content().encoding("UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_HTML + ";charset=UTF-8"))
+                .andExpect(cookie().doesNotExist("uid"))
+        ;
+
+    }
+
+    @Test
+    public void testResetPasswordSuccess() throws Exception {
+        String testUrl = "/admin/password/reset";
+
+        expect(socialConsumer.emailApprove(user.getEmail())).andReturn(user);
+        expect(socialConsumer.getToken(user.getLogin(), testRole2)).andReturn(testToken);
+        socialMail.sendPasswordRecoveryEmail("http://localhost"+testUrl, testToken, user);
+        expectLastCall();
+        replay(socialConsumer, socialMail);
+
+        mockMvc.perform(
+                post(testUrl)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("email", user.getEmail())
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("password/reset"))
+                .andExpect(model().attribute("email", user.getEmail()))
+                .andExpect(model().attribute("e_mail", user.getEmail()))
+                .andExpect(content().encoding("UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_HTML + ";charset=UTF-8"))
+                .andExpect(cookie().doesNotExist("uid"))
+        ;
+    }
+
+    @Test
+    public void testResetPasswordFailInvalidEmail() throws Exception {
+        String testUrl = "/admin/password/reset";
+
+        expect(socialConsumer.emailApprove(user.getEmail())).andReturn(null);
+        replay(socialConsumer, socialMail);
+
+        mockMvc.perform(
+                post(testUrl)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("email", user.getEmail())
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("password/reset"))
+                .andExpect(model().attributeDoesNotExist("e_mail"))
+                .andExpect(model().attribute("email", user.getEmail()))
+                .andExpect(content().encoding("UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_HTML + ";charset=UTF-8"))
+                .andExpect(cookie().doesNotExist("uid"))
+        ;
+    }
+
+    @Test
+    public void testResetPasswordFailInvalidToken() throws Exception {
+        String testUrl = "/admin/password/reset";
+
+        expect(socialConsumer.emailApprove(user.getEmail())).andReturn(user);
+        expect(socialConsumer.getToken(user.getLogin(), testRole2)).andReturn(null);
+        replay(socialConsumer, socialMail);
+
+        mockMvc.perform(
+                post(testUrl)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("email", user.getEmail())
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("password/reset"))
+                .andExpect(model().attributeDoesNotExist("e_mail"))
+                .andExpect(model().attribute("email", user.getEmail()))
+                .andExpect(content().encoding("UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_HTML + ";charset=UTF-8"))
+                .andExpect(cookie().doesNotExist("uid"))
+        ;
+
+    }
+
+    @Test
+    public void testNewPassword() throws Exception {
+        String testUrl = "/admin/password/new";
+
+        expect(socialConsumer.getUserDto(testToken)).andReturn(dto);
+        replay(socialConsumer, socialMail);
+
+        mockMvc.perform(
+                get(testUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("token", testToken)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("password/new"))
+                .andExpect(model().attribute("dto", dto))
+                .andExpect(model().attributeDoesNotExist("reset"))
+        ;
+    }
+
+    @Test
+    public void testChangePassword() throws Exception {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.set("password1", password);
+            params.set("password2", password);
+            params.set("token", testToken);
+
+        expect(socialConsumer.getUserDto(testToken)).andReturn(dto);
+        expect(socialConsumer.getToken(login, testRole)).andReturn(testToken1);
+        socialConsumer.changePassword(testToken1, password);
+        expectLastCall();
+        replay(socialConsumer, socialMail);
+
+        mockMvc.perform(
+                post("/admin/password/change")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .params(params)
+                )
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/admin/password/change/user"))
+                .andExpect(cookie().value("uid", testToken1));
+
 
     }
 }

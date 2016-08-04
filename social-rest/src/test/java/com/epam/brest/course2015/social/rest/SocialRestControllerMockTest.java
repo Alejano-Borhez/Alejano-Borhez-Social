@@ -498,7 +498,7 @@ public class SocialRestControllerMockTest {
 
     @Test
     public void testGetUserDto() throws Exception {
-        expect(socialSecurity.isTokenValid(testToken, testRole, testRole1)).andReturn(true);
+        expect(socialSecurity.isTokenValid(testToken, testRole, testRole1, testRole2)).andReturn(true);
         expect(socialService.getSocialUsersDto())
                 .andReturn(new SocialDto());
         replay(socialService);
@@ -517,7 +517,7 @@ public class SocialRestControllerMockTest {
 
     @Test
     public void testGetUserDtoInvalidToken() throws Exception {
-        expect(socialSecurity.isTokenValid(testToken, testRole, testRole1)).andReturn(false);
+        expect(socialSecurity.isTokenValid(testToken, testRole, testRole1, testRole2)).andReturn(false);
         replay(socialService);
         replay(socialSecurity);
         mockMvc.perform(
@@ -741,5 +741,31 @@ public class SocialRestControllerMockTest {
                 .andExpect(content().string(""));
     }
 
+    @Test
+    public void testGetUserByEmail() throws Exception {
+        expect(socialService.getUserByEmail(testEmail)).andReturn(testUser);
+        replay(socialSecurity, socialService);
+        String user = new ObjectMapper().writeValueAsString(testUser);
+        mockMvc.perform(
+                get("/user/byEmail?email=" + testEmail)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(user));
 
+    }
+
+    @Test
+    public void testGetUserByEmailNull() throws Exception {
+        expect(socialService.getUserByEmail(testEmail)).andReturn(null);
+        replay(socialSecurity, socialService);
+        mockMvc.perform(
+                get("/user/byEmail?email=" + testEmail)
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(""));
+
+
+    }
 }

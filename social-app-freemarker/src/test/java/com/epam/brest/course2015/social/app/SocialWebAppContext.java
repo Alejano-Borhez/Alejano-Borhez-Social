@@ -23,7 +23,8 @@ import java.io.IOException;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackageClasses = {SocialUserAdministrator.class})
-public class SocialWebAppContext extends WebMvcConfigurerAdapter {
+class SocialWebAppContext extends WebMvcConfigurerAdapter {
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -42,17 +43,18 @@ public class SocialWebAppContext extends WebMvcConfigurerAdapter {
     @Bean
     ViewResolver viewResolver() {
         FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
-        viewResolver.setSuffix(".ftl");
-        viewResolver.setPrefix("");
-        viewResolver.setCache(true);
-        viewResolver.setContentType("text/html;charset=UTF-8");
+            viewResolver.setSuffix(".ftl");
+            viewResolver.setPrefix("");
+            viewResolver.setCache(true);
+            viewResolver.setContentType("text/html;charset=UTF-8");
         return viewResolver;
     }
 
     @Bean
     FreeMarkerConfigurer freeMarkerConfigurer() throws IOException {
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-        freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_24);
+        freemarker.template.Configuration cfg =
+            new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_24);
             cfg.setDirectoryForTemplateLoading(new File("src/main/webapp/views/clear_design/"));
             cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             cfg.setDefaultEncoding("UTF-8");
@@ -63,11 +65,9 @@ public class SocialWebAppContext extends WebMvcConfigurerAdapter {
 
     @Bean
     MessageSource messageSource() {
-       ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-
-        messageSource.setBasename("classpath:messages");
-        messageSource.setDefaultEncoding("UTF-8");
-
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+            messageSource.setBasename("classpath:messages");
+            messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
 
     }

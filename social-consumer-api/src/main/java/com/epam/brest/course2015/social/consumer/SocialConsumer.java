@@ -15,6 +15,7 @@ public interface SocialConsumer {
     SocialDto getAllUsers(String token);
     SocialDto getAllUsersByDate(String token, String dateMin, String dateMax);
     SocialDto getAllNoFriendsOfAUser(String token);
+    User emailApprove(String email);
     void changePassword(String token, String password);
     void changeLogin(String token, String login);
     void changeFirstName(String token, String firstName);
@@ -27,7 +28,7 @@ public interface SocialConsumer {
     void renameImage(String token, String name);
     boolean isUserInDB(User user);
     boolean isTokenValid(String token);
-
 //    Not implemented
     void deleteUser(Integer id);
+
 }

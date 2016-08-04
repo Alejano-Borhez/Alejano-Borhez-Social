@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 
 /**
@@ -36,16 +35,19 @@ public class SocialSecurityInterceptor {
     @Autowired
     private SocialSecurity socialSecurity;
 
-    @Pointcut("execution(@com.epam.brest.course2015.social.service.SocialSecured * * (..))")
-    private void checkToken() {}
+    @Pointcut("execution(@com.epam.brest.course2015.social.service.SocialSecured * * (..))" +
+            " && @annotation(value) ")
+    private void checkToken(SocialSecured value) {}
 
-    @Around("checkToken()")
-    private Object executeCheck(ProceedingJoinPoint joinPoint) throws Throwable
+    @Around("checkToken(value)")
+    private Object executeCheck(ProceedingJoinPoint joinPoint, SocialSecured value) throws Throwable
     {
         LOGGER.info("Intercepting a checkToken process");
         Object[] argz = joinPoint.getArgs();
         String token = getToken(argz, joinPoint);
-        if (token != null && socialSecurity.isTokenValid(token, roleUser, roleAdmin)) {
+        String[] roles = value.roles();
+
+        if (token != null && socialSecurity.isTokenValid(token, value.roles())) {
             LOGGER.info("Token is valid: {}", token);
             return joinPoint.proceed();
         }

@@ -26,6 +26,8 @@ public class UserDaoJPA implements UserDao {
     private String SelectAllUsersByDate;
     @Value("${user.selectByLogin}")
     private String selectUserByLogin;
+    @Value("${user.selectByEmail}")
+    private String selectUserByEmail;
     @Value("${user.getCountOfUsers}")
     private String getCountOfUsers;
 
@@ -144,11 +146,23 @@ public class UserDaoJPA implements UserDao {
     @Logged
     public User getUserByLogin(String login) throws EmptyResultDataAccessException {
         try {
-            User user = entityManager
+            return entityManager
                     .createQuery(selectUserByLogin, User.class)
                     .setParameter("login", login)
                     .getSingleResult();
-            return user;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        try {
+            return entityManager
+                    .createQuery(selectUserByEmail, User.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;

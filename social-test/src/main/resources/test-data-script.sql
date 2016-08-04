@@ -12,7 +12,7 @@ VALUES (
     1,
     'Alexander',
     'Borohov',
-    29,
+    30,
     'alejano_borhez',
     '123456',
     'alejano_borhez@social.by',
