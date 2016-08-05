@@ -231,3 +231,41 @@ VALUES (
 TO_TIMESTAMP('20/08/2015 23:59:59', 'DD/MM/YYYY HH:MI:SS'),
 'USER'
 );
+
+INSERT INTO TOKEN (
+userId,
+token,
+expires,
+role
+)
+VALUES (
+1,
+'TEST_TOKEN3',
+TO_TIMESTAMP('20/08/2017 23:59:59', 'DD/MM/YYYY HH:MI:SS'),
+'USER'
+);
+
+INSERT INTO TOKEN (
+userId,
+token,
+expires,
+role
+)
+VALUES (
+3,
+'TEST_TOKEN4',
+TO_TIMESTAMP('20/08/2017 23:59:59', 'DD/MM/YYYY HH:MI:SS'),
+'USER'
+);
+INSERT INTO TOKEN (
+userId,
+token,
+expires,
+role
+)
+VALUES (
+4,
+'TEST_TOKEN5',
+TO_TIMESTAMP('20/08/2017 23:59:59', 'DD/MM/YYYY HH:MI:SS'),
+'USER'
+);
