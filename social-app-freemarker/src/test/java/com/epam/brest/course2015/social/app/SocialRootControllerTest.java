@@ -28,18 +28,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by alexander_borohov on 5.8.16.
+ * Created by alexander_borohov on 8.8.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SocialWebAppContext.class, SocialControllerConfig.class})
 @WebAppConfiguration
-public class SocialAppFreeMarkerTest {
+public class SocialRootControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
-
     @Autowired
     private SocialConsumer socialConsumer;
-
     @Autowired
     private SocialMail socialMail;
 
@@ -50,13 +48,6 @@ public class SocialAppFreeMarkerTest {
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         user = new User(login, password, firstName, lastName, age, email);
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        verify(socialConsumer, socialMail);
-        reset(socialConsumer, socialMail);
     }
 
     @Test
@@ -70,20 +61,25 @@ public class SocialAppFreeMarkerTest {
 
         mockMvc.perform(
                 post(testURL)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("login", user.getLogin())
-                .param("password", user.getPassword())
-                .cookie(new Cookie("Referer", testRef))
-                )
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("login", user.getLogin())
+                        .param("password", user.getPassword())
+                        .cookie(new Cookie("Referer", testRef))
+        )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(cookie().value("uid", testToken + "1"))
+                .andExpect(cookie().value("uid", testToken))
                 .andExpect(cookie().doesNotExist("Referer"))
                 .andExpect(redirectedUrl(testRef))
         ;
     }
 
+    @After
+    public void tearDown() throws Exception {
+        verify(socialConsumer, socialMail);
+        reset(socialConsumer, socialMail);
+    }
 
 //    @Test
     public void restPrefix() throws Exception {
@@ -96,62 +92,7 @@ public class SocialAppFreeMarkerTest {
     }
 
 //    @Test
-    public void deleteFriend() throws Exception {
-
-    }
-
-//    @Test
-    public void addFriendship() throws Exception {
-
-    }
-
-//    @Test
-    public void addUser() throws Exception {
-
-    }
-
-//    @Test
-    public void deleteUser() throws Exception {
-
-    }
-
-//    @Test
-    public void changePassword() throws Exception {
-
-    }
-
-//    @Test
-    public void changeLogin() throws Exception {
-
-    }
-
-//    @Test
-    public void changeFirstName() throws Exception {
-
-    }
-
-//    @Test
-    public void changeLastName() throws Exception {
-
-    }
-
-//    @Test
     public void login() throws Exception {
-
-    }
-
-//    @Test
-    public void getAllUsersByDate() throws Exception {
-
-    }
-
-//    @Test
-    public void getAllUsersDto() throws Exception {
-
-    }
-
-//    @Test
-    public void getUserDto() throws Exception {
 
     }
 
@@ -162,16 +103,6 @@ public class SocialAppFreeMarkerTest {
 
 //    @Test
     public void getMessages() throws Exception {
-
-    }
-
-//    @Test
-    public void getFriendsDto() throws Exception {
-
-    }
-
-//    @Test
-    public void getNoFriendsDto() throws Exception {
 
     }
     @Value("${test.firstName}")

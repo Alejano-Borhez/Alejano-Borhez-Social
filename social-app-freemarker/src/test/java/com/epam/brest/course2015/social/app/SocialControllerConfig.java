@@ -5,28 +5,20 @@ import com.cloudinary.utils.ObjectUtils;
 import com.epam.brest.course2015.social.consumer.SocialConsumer;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.mail.SocialMail;
-import com.epam.brest.course2015.social.test.Logged;
 import com.epam.brest.course2015.social.test.SocialLogger;
 import org.easymock.EasyMock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
  * Created by alexander_borohov on 28.7.16.
  */
 @Configuration
-@ComponentScan(basePackageClasses = {SocialUserAdministrator.class})
+@ComponentScan(basePackageClasses = {SocialAdminController.class})
 class SocialControllerConfig {
 
     @Bean

@@ -3,6 +3,7 @@ package com.epam.brest.course2015.social.consumer;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.dto.SocialDto;
 import com.epam.brest.course2015.social.test.Logged;
+import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -150,58 +151,13 @@ public class SocialConsumerRestImpl implements SocialConsumer {
 
     @Override
     @Logged
-    public void changePassword(String token, String password) {
+    public void changeUser(String token, String action, String newValue) {
         UriComponents uriComponents = UriComponentsBuilder
                 .fromHttpUrl(restPrefix)
                 .pathSegment("user")
                 .pathSegment("{action}")
-                .queryParam("param", password)
-                .buildAndExpand("password");
-
-        String url = uriComponents.toUriString();
-
-        restTemplate.postForObject(url, token, Object.class);
-    }
-
-    @Override
-    @Logged
-    public void changeLogin(String token, String login) {
-        UriComponents uriComponents = UriComponentsBuilder
-                .fromHttpUrl(restPrefix)
-                .pathSegment("user")
-                .pathSegment("{action}")
-                .queryParam("param", login)
-                .buildAndExpand("login");
-
-        String url = uriComponents.toUriString();
-
-        restTemplate.postForObject(url, token, Object.class);
-    }
-
-    @Override
-    @Logged
-    public void changeFirstName(String token, String firstName) {
-        UriComponents uriComponents = UriComponentsBuilder
-                .fromHttpUrl(restPrefix)
-                .pathSegment("user")
-                .pathSegment("{action}")
-                .queryParam("param", firstName)
-                .buildAndExpand("firstname");
-
-        String url = uriComponents.toUriString();
-
-        restTemplate.postForObject(url, token, Object.class);
-    }
-
-    @Override
-    @Logged
-    public void changeLastName(String token, String lastName) {
-        UriComponents uriComponents = UriComponentsBuilder
-                .fromHttpUrl(restPrefix)
-                .pathSegment("user")
-                .pathSegment("{action}")
-                .queryParam("param", lastName)
-                .buildAndExpand("lastname");
+                .queryParam("param", newValue)
+                .buildAndExpand(action);
 
         String url = uriComponents.toUriString();
 

@@ -162,7 +162,7 @@ public class SocialConsumerRestImplTest {
         expect(restTemplate.postForObject(uriComponents.toUriString(), testToken, Object.class)).andReturn(new Object());
         replay(restTemplate);
 
-        socialConsumer.changePassword(testToken, password);
+        socialConsumer.changeUser(testToken, "password", password);
     }
 
     @Test
@@ -176,7 +176,7 @@ public class SocialConsumerRestImplTest {
         expect(restTemplate.postForObject(uriComponents.toUriString(), testToken, Object.class)).andReturn(new Object());
         replay(restTemplate);
 
-        socialConsumer.changeLastName(testToken, lastName);
+        socialConsumer.changeUser(testToken, "lastname", lastName);
     }
 
     @Test

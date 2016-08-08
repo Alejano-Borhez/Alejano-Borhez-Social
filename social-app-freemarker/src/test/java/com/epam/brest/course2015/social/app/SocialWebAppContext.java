@@ -22,9 +22,8 @@ import java.io.IOException;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = {SocialUserAdministrator.class})
+@ComponentScan(basePackages = {"com.epam.brest.course2015.social.app"})
 class SocialWebAppContext extends WebMvcConfigurerAdapter {
-
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -16,7 +16,7 @@ allprojects {
 
     version = '1.0-SNAPSHOT'
 
-    test.ignoreFailures = true
+//    test.ignoreFailures = true
 
     project.checkstyle.configFile = new File("../config/checkstyle/checkstyle.xml")
 

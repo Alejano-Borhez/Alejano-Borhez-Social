@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SocialControllerConfig.class, SocialWebAppContext.class})
 @WebAppConfiguration
-public class SocialUserAdminTest {
+public class SocialAdminControllerTest {
     @Value("${test.firstName}")
     private String firstName;
     @Value("${test.lastName}")
@@ -352,7 +352,7 @@ public class SocialUserAdminTest {
 
         expect(socialConsumer.getUserDto(testToken)).andReturn(dto);
         expect(socialConsumer.getToken(login, testRole)).andReturn(testToken1);
-        socialConsumer.changePassword(testToken1, password);
+        socialConsumer.changeUser(testToken1, "password", password);
         expectLastCall();
         replay(socialConsumer, socialMail);
 

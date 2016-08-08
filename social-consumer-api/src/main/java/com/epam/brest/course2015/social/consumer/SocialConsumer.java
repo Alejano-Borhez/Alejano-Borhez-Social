@@ -4,6 +4,8 @@ import com.epam.brest.course2015.social.core.Image;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.dto.SocialDto;
 
+import java.util.function.Supplier;
+
 /**
  * Created by alexander on 19.1.16.
  */
@@ -16,10 +18,7 @@ public interface SocialConsumer {
     SocialDto getAllUsersByDate(String token, String dateMin, String dateMax);
     SocialDto getAllNoFriendsOfAUser(String token);
     User emailApprove(String email);
-    void changePassword(String token, String password);
-    void changeLogin(String token, String login);
-    void changeFirstName(String token, String firstName);
-    void changeLastName(String token, String lastName);
+    void changeUser(String token, String action, String newValue);
     boolean addUserSubmit(User user);
     void addFriendship(String token, Integer id2);
     void deleteFriend(String token, Integer id2);

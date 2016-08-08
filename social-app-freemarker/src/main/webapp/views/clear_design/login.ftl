@@ -37,7 +37,7 @@
 			<!--			<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label> -->
 
 							<div class="button-login">
-								<a class="btn btn-default" href="adduser">Sign Up</a>
+								<a class="btn btn-default" href="user/add">Sign Up</a>
 
 								<button type="submit" class="btn btn-primary">Login</button>
 							</div>

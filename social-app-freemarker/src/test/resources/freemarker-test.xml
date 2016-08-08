@@ -51,7 +51,7 @@
         <property name="contentType" value="text/html;charset=UTF-8"/>
     </bean>
 
-    <bean id="socialUserAdministrator" class="com.epam.brest.course2015.social.app.SocialUserAdministrator"/>
+    <bean id="socialUserAdministrator" class="com.epam.brest.course2015.social.app.SocialAdminController"/>
 
     <aop:aspectj-autoproxy/>
     <bean class="com.epam.brest.course2015.social.test.SocialLogger"/>

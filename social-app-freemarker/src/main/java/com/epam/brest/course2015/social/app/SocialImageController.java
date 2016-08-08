@@ -24,38 +24,17 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/gallery")
-public class SocialUploader {
-    @Value("${server.prefix}")
-    private String serverPrefix;
+public class SocialImageController {
     @Value("${cloud.name}")
     private String cloudName;
     @Value("${api.key}")
     private String apiKey;
-    @Value("${api.secret}")
-    private String apiSecret;
-    @Value("${api.url}")
-    private String apiUrl;
-    @Value("${delivery.url}")
-    private String deliveryUrl;
 
     @Autowired
     private SocialConsumer socialConsumer;
 
     @Autowired
     private Cloudinary cloudinary;
-
-//    Preparing a Cloudinary instance
-/*
-    private Cloudinary cloudinary = new Cloudinary(
-            ObjectUtils.asMap(
-                "cloud_name", "simple-social",
-                "api_key", "543582919166178",
-                "api_secret", "ZJuERS_91Sda3qhiLog6ZQ4DRgQ"
-            )
-    );
-*/
-
-
 
     @PostMapping("/upload")
     @Logged
@@ -64,12 +43,12 @@ public class SocialUploader {
             throws IOException {
         if (cookie != null) {
         String token = cookie.getValue();
-//      Preparing file to upload
+            //Preparing file to upload
             File binaryBody = new File(file.getOriginalFilename());
             file.transferTo(binaryBody);
             String filename = FilenameUtils.getBaseName(file.getOriginalFilename());
             String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-//      Sending an upload request
+            //Sending an upload request
             Transformation transformation =
                     new Transformation().width(200).crop("fill").gravity("face");
 
@@ -82,8 +61,7 @@ public class SocialUploader {
             );
 
             binaryBody.delete();
-//      Receiving URL of uploaded image
-
+            // Receiving URL of uploaded image
             Transformation transformation50 =
                     new Transformation().height(50).crop("fill");
             Transformation transformation81 =
@@ -94,11 +72,9 @@ public class SocialUploader {
                     generate(filename);
             String url81 = cloudinary.url().format(extension).transformation(transformation81).
                     generate(filename);
-//      Persisting URL in a database
+            // Persisting URL in a database
             socialConsumer.addImage(token, url, url50, url81);
-
         }
-//
         return "redirect:/photo";
     }
 
@@ -129,7 +105,7 @@ public class SocialUploader {
     @ResponseBody
     public String cloudinaryAPI() {
 
-        return "{ cloud_name: '" +
+        return "{cloud_name: '" +
                 cloudName +
                 "', api_key: '" +
                 apiKey +

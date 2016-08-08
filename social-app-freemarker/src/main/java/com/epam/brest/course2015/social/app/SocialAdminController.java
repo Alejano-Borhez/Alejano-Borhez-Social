@@ -22,7 +22,7 @@ import java.io.IOException;
 @Controller
 @RequestMapping("admin")
 @ControllerAdvice
-public class SocialUserAdministrator {
+public class SocialAdminController implements SocialController {
     @Value("${role.admin}")
     private String roleAdmin;
     @Value("${role.user}")
@@ -88,14 +88,13 @@ public class SocialUserAdministrator {
             SocialDto dto = socialConsumer.getUserDto(token);
             if (dto != null && dto.getUser() != null) {
                 newToken = socialConsumer.getToken(dto.getUser().getLogin(), roleUser);
-                socialConsumer.changePassword(newToken, password1);
+                socialConsumer.changeUser(newToken, "password", password1);
             }
         }
         if (newToken != null) {
             settingACookie(resp, newToken);
             return "redirect:" + path + "/user";
         }
-
         return "redirect:"+ path + "/admin/password/new?token=" + token + "&reset=reset";
 
     }
@@ -110,7 +109,6 @@ public class SocialUserAdministrator {
         if (newToken != null) {
             mav.addObject("dto", socialConsumer.getUserDto(newToken));
         }
-
         return mav;
     }
 
@@ -133,18 +131,6 @@ public class SocialUserAdministrator {
         // Redirection if User is not added to DataBase
         resp.sendRedirect("../login");
         return null;
-    }
-
-    @Logged
-    private static String getPath(HttpServletRequest req) {
-        return req.getRequestURL().toString().replace(req.getServletPath(), "");
-    }
-
-    @Logged
-    private static void settingACookie(HttpServletResponse resp, String token) {
-        Cookie cookie = new Cookie("uid", token);
-        cookie.setMaxAge(60 * 60 * 24);
-        resp.addCookie(cookie);
     }
 
 }
