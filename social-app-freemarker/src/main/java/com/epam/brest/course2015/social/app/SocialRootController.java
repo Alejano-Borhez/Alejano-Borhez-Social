@@ -19,8 +19,8 @@ import java.io.IOException;
 /**
  * Created by alexander_borohov on 27.6.16.
  */
-@Controller
-public class SocialRootController implements SocialController {
+@Controller("/")
+public class SocialRootController extends SocialController {
     @Value("${rest.prefix}")
     private String restPrefix;
 
@@ -34,7 +34,7 @@ public class SocialRootController implements SocialController {
         return restPrefix + "websocket/endpoint";
     }
 
-    @RequestMapping("/")
+    @RequestMapping("")
     @Logged
     public String init(@CookieValue(name = "uid", required = false) Cookie cookie,
                        HttpServletResponse resp, HttpServletRequest req) {

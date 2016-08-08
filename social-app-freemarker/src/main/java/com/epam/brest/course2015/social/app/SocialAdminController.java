@@ -20,9 +20,9 @@ import java.io.IOException;
  * Created by alexander_borohov on 26.7.16.
  */
 @Controller
-@RequestMapping("admin")
+@RequestMapping("/admin")
 @ControllerAdvice
-public class SocialAdminController implements SocialController {
+public class SocialAdminController extends SocialController {
     @Value("${role.admin}")
     private String roleAdmin;
     @Value("${role.user}")

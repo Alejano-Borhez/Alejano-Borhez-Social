@@ -18,8 +18,8 @@ import java.io.IOException;
  * Created by alexander_borohov on 8.8.16.
  */
 @Controller
-@RequestMapping("user")
-public class SocialUserController implements SocialController {
+@RequestMapping("/user")
+public class SocialUserController extends SocialController {
     @Autowired
     private SocialConsumer socialConsumer;
 

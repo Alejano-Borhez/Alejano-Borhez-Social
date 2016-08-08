@@ -9,18 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by alexander_borohov on 8.8.16.
  */
-interface SocialController {
-    default void setReferer(HttpServletResponse resp, HttpServletRequest req) {
+public class SocialController {
+    void setReferer(HttpServletResponse resp, HttpServletRequest req) {
         Cookie referer = new Cookie("Referer", req.getRequestURL().toString());
         referer.setMaxAge(60*60*4);
         resp.addCookie(referer);
     }
 
-    default String getPath(HttpServletRequest req) {
+    String getPath(HttpServletRequest req) {
         return req.getRequestURL().toString().replace(req.getServletPath(), "");
     }
 
-    default void settingACookie(HttpServletResponse resp, String token) {
+    void settingACookie(HttpServletResponse resp, String token) {
         Cookie cookie = new Cookie("uid", token);
         cookie.setMaxAge(60 * 60 * 24);
         resp.addCookie(cookie);

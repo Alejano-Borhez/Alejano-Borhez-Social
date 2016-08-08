@@ -19,8 +19,8 @@ import java.io.IOException;
  * Created by alexander_borohov on 8.8.16.
  */
 @Controller
-@RequestMapping("friend")
-public class SocialFriendController implements SocialController {
+@RequestMapping("/friend")
+public class SocialFriendController extends SocialController {
     @Autowired
     private SocialConsumer socialConsumer;
 
