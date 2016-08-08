@@ -15,9 +15,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by alexander_borohov on 26.7.16.
@@ -54,7 +51,7 @@ public class SocialUserAdministrator {
             String token = socialConsumer.getToken(user.getLogin(), roleTemp);
             if (token != null) {
                 mav.addObject("e_mail", email);
-                String path = req.getRequestURL().toString().replace(req.getServletPath(), "");
+                String path = getPath(req);
 
                 socialMail.sendPasswordRecoveryEmail(path, token, user);
             }
@@ -84,7 +81,7 @@ public class SocialUserAdministrator {
                                  @RequestParam("token") String token,
                                  HttpServletRequest req,
                                  HttpServletResponse resp) {
-        String path = req.getRequestURL().toString().replace(req.getServletPath(), "");
+        String path = getPath(req);
 
         String newToken = null;
         if (password1 != null && password1.equals(password2)) {
@@ -126,21 +123,25 @@ public class SocialUserAdministrator {
 
         if (socialConsumer.addUserSubmit(user)) {
             String token = socialConsumer.getToken(user.getLogin(), roleTemp);
-// Setting a Cookie
+            // Setting a Cookie
             settingACookie(resp, token);
             mav.addObject("email", user.getEmail());
-// Sending an E-mail with account verification details
-            String path = req.getRequestURL().toString().replace(req.getServletPath(), "");
-            socialMail.sendApprovalEmail(path, token, user);
+            // Sending an E-mail with account verification details
+            socialMail.sendApprovalEmail(getPath(req), token, user);
             return mav;
         }
-
+        // Redirection if User is not added to DataBase
         resp.sendRedirect("../login");
         return null;
     }
 
     @Logged
-    private void settingACookie(HttpServletResponse resp, String token) {
+    private static String getPath(HttpServletRequest req) {
+        return req.getRequestURL().toString().replace(req.getServletPath(), "");
+    }
+
+    @Logged
+    private static void settingACookie(HttpServletResponse resp, String token) {
         Cookie cookie = new Cookie("uid", token);
         cookie.setMaxAge(60 * 60 * 24);
         resp.addCookie(cookie);

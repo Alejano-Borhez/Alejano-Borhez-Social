@@ -30,15 +30,13 @@
 
         </div>
 
-        <div class="row-fluid sortable">
+        <div class="row-fluid">
 
             <#include "build_modules/content.ftl"/>
 
             <div class="span6 well" id="user_gallery">
                         <ul class="dashboard-list">
                             <h2> Галерея пользователя: <a href="photo" title="Добавить фотографии"> <i class="icon-plus"></i></a> </h2>
-
-
                                 <#list dto.user.images as image>
                                         <div id="image-${image.imageId}" class="masonry-thumb">
                                             <a title="Click to delete" href="#" onclick="deleteImage(${image.imageId})">

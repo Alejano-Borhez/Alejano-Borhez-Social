@@ -1,5 +1,7 @@
 package com.epam.brest.course2015.social.app;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.epam.brest.course2015.social.consumer.SocialConsumer;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.mail.SocialMail;
@@ -45,6 +47,17 @@ class SocialControllerConfig {
     @Bean
     SocialMail socialMail() {
         return EasyMock.createMock(SocialMail.class);
+    }
+
+    @Bean
+    Cloudinary cloudinary() {
+        return new Cloudinary(
+                ObjectUtils.asMap(
+                        "cloud_name", "simple-social",
+                        "api_key", "543582919166178",
+                        "api_secret", "ZJuERS_91Sda3qhiLog6ZQ4DRgQ"
+                )
+        );
     }
 
     @Bean

@@ -8,7 +8,6 @@ include 'social-core',
         'social-rest',
         'social-consumer-api',
         'social-consumer-restimpl',
-        'social-app-freemarker'
-include 'social-security'
-include 'social-mail'
-
+        'social-app-freemarker',
+        'social-security',
+        'social-mail'

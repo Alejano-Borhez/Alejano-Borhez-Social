@@ -1,53 +1,94 @@
 buildscript {
     repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "net.saliman:gradle-cobertura-plugin:2.3.2"
+        classpath "org.akhikhl.gretty:gretty:+"
     }
 }
 
-apply plugin: "net.saliman.cobertura"
-apply plugin: 'java'
-apply plugin: 'checkstyle'
+allprojects {
+    apply plugin: 'net.saliman.cobertura'
+    apply plugin: 'java'
+    apply plugin: 'checkstyle'
 
-project.checkstyle.configFile = new File("../config/checkstyle/checkstyle.xml")
+    version = '1.0-SNAPSHOT'
 
-Integer sourceCompatibility = 1.7
-Integer targetCompatibility = 1.7
+    test.ignoreFailures = true
 
+    project.checkstyle.configFile = new File("../config/checkstyle/checkstyle.xml")
 
-repositories {
-    mavenCentral()
-}
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
-String springVersion = '4.3.0.RELEASE'
+    ext {
+        springVersion = '4.3.0.RELEASE'
+        cloudinaryVersion = '1.4.2'
+        junitVersion = '4.12'
+        easyMockVersion = '3.4'
+        jacksonDataBindVersion = '2.6.5'
+        log4jVersion = '2.1'
+        slf4jVersion = '1.7.21'
+        checkstyleVersion = '7.0'
+    }
 
-List spring = ["org.springframework:spring-core:" + springVersion,
-               "org.springframework:spring-beans:" + springVersion,
-               "org.springframework:spring-context:" + springVersion,
-               "org.springframework:spring-aspects:" + springVersion,
-               "org.springframework:spring-jdbc:" + springVersion
-               ]
+    repositories {
+        mavenCentral()
+    }
 
-List test = ["org.springframework:spring-test:" + springVersion,
-             "junit:junit:4.12",
-             "org.easymock:easymock:3.4"]
+    List spring = ["org.springframework:spring-core:$springVersion",
+                   "org.springframework:spring-beans:$springVersion",
+                   "org.springframework:spring-context:$springVersion",
+                   "org.springframework:spring-aspects:$springVersion",
+                   "org.springframework:spring-jdbc:$springVersion"
+    ]
 
-List jackson = ["com.fasterxml.jackson.core:jackson-databind:2.6.5"]
+    List test = ["org.springframework:spring-test:$springVersion",
+                 "junit:junit:$junitVersion",
+                 "org.easymock:easymock:$easyMockVersion"]
 
-List logging = ["org.apache.logging.log4j:log4j-api:2.1",
-                "org.apache.logging.log4j:log4j-core:2.1",
-                "org.apache.logging.log4j:log4j-slf4j-impl:2.1",
-                "org.slf4j:slf4j-api:1.7.21"
-]
+    List jackson = ["com.fasterxml.jackson.core:jackson-databind:$jacksonDataBindVersion"]
 
+    List logging = ["org.apache.logging.log4j:log4j-api:$log4jVersion",
+                    "org.apache.logging.log4j:log4j-core:$log4jVersion",
+                    "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion",
+                    "org.slf4j:slf4j-api:$slf4jVersion"
+    ]
 
+    dependencies {
+        compile spring, logging, jackson
+        compile "com.puppycrawl.tools:checkstyle:$checkstyleVersion"
+        testCompile test
+    }
 
-dependencies {
-    compile spring, logging, jackson
-    compile 'com.puppycrawl.tools:checkstyle:7.0'
-    testCompile test
+    project(':social-rest') {
+
+        apply plugin: 'war'
+        apply plugin: 'org.akhikhl.gretty'
+
+        dependencies {
+            compile "org.springframework:spring-webmvc:$springVersion",
+                    "org.springframework:spring-web:$springVersion",
+                    "org.springframework:spring-messaging:$springVersion",
+                    "org.springframework:spring-websocket:$springVersion",
+                    "javax.servlet:javax.servlet-api:3.1.0"
+        }
+    }
+
+    project(':social-app-freemarker') {
+
+        apply plugin: 'war'
+        apply plugin: 'jetty'
+
+        dependencies {
+            compile "org.springframework:spring-webmvc:$springVersion",
+                    "org.springframework:spring-web:$springVersion",
+                    "org.springframework:spring-messaging:$springVersion",
+                    "org.springframework:spring-websocket:$springVersion",
+                    "javax.servlet:javax.servlet-api:3.1.0"
+        }
+    }
+
 }

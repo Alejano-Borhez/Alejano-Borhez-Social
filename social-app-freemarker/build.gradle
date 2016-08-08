@@ -1,40 +1,12 @@
-group 'Alejano-Borhez-Social'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'war'
-apply plugin: 'jetty'
-apply plugin: "net.saliman.cobertura"
-apply plugin: 'checkstyle'
-
-project.checkstyle.configFile = new File("../config/checkstyle/checkstyle.xml")
-
 httpPort = 8082
 stopPort = 9082
 stopKey = "stopKey"
 
-repositories {
-    mavenCentral()
-}
-
-String springVersion = '4.3.0.RELEASE'
-
-List test = ["org.springframework:spring-test:" + springVersion,
-             "junit:junit:4.12",
-             "org.easymock:easymock:3.4"]
-
 dependencies {
     compile project(':social-consumer-restimpl')
     compile project(':social-mail')
-    compile 'org.springframework:spring-webmvc:' + springVersion,
-            'org.springframework:spring-web:' + springVersion,
-            'org.springframework:spring-messaging:' + springVersion,
-            'org.springframework:spring-websocket:' + springVersion,
-            'org.springframework:spring-context-support:' + springVersion,
-            'javax.servlet:javax.servlet-api:3.1.0',
-            'org.freemarker:freemarker:2.3.24-incubating',
-            'commons-io:commons-io:2.4',
-            'commons-fileupload:commons-fileupload:1.3.1',
-            'com.fasterxml.jackson.core:jackson-databind:2.6.5',
-            'com.cloudinary:cloudinary-http44:1.4.2'
-    testCompile test
+    compile "org.freemarker:freemarker:2.3.24-incubating",
+            "commons-io:commons-io:2.4",
+            "commons-fileupload:commons-fileupload:1.3.1",
+            "com.cloudinary:cloudinary-http44:$cloudinaryVersion"
 }

@@ -1,28 +1,8 @@
-group 'Alejano-Borhez-Social'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-apply plugin: 'net.saliman.cobertura'
-apply plugin: 'checkstyle'
-
-project.checkstyle.configFile = new File("../config/checkstyle/checkstyle.xml")
-
-repositories {
-    mavenCentral()
-}
-
-String springVersion = '4.3.0.RELEASE'
-
-List test = ["org.springframework:spring-test:" + springVersion,
-             "junit:junit:4.12",
-             "org.easymock:easymock:3.4"]
-
 dependencies {
     compile project(':social-consumer-restimpl')
-    compile 'org.springframework:spring-context-support:' + springVersion,
+    compile "org.springframework:spring-context-support:$springVersion",
             'javax.mail:javax.mail-api:1.5.2',
             'com.sun.mail:javax.mail:1.5.5',
             'org.freemarker:freemarker:2.3.24-incubating',
             'commons-io:commons-io:2.4'
-    testCompile test
 }

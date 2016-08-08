@@ -41,8 +41,11 @@ public class SocialUploader {
     @Autowired
     private SocialConsumer socialConsumer;
 
+    @Autowired
+    private Cloudinary cloudinary;
 
 //    Preparing a Cloudinary instance
+/*
     private Cloudinary cloudinary = new Cloudinary(
             ObjectUtils.asMap(
                 "cloud_name", "simple-social",
@@ -50,6 +53,7 @@ public class SocialUploader {
                 "api_secret", "ZJuERS_91Sda3qhiLog6ZQ4DRgQ"
             )
     );
+*/
 
 
 

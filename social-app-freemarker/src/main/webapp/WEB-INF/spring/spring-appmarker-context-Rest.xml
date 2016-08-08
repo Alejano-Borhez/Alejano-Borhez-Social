@@ -117,13 +117,21 @@
         </property>
     </bean>
 
-
-
     <bean id="freemarkerMailConfig" class="freemarker.template.Configuration">
         <property name="directoryForTemplateLoading" value="templates"/>
     </bean>
-
     <!-- Social Mail implementation -->
 
+    <!-- Cloudinary support -->
+    <bean class="com.cloudinary.Cloudinary">
+        <constructor-arg>
+            <map>
+                <entry key="cloud_name" value="${cloud.name}"/>
+                <entry key="api_key" value="${api.key}"/>
+                <entry key="api_secret" value="${api.secret}"/>
+            </map>
+        </constructor-arg>
+    </bean>
+    <!-- Cloudinary support -->
 
 </beans>

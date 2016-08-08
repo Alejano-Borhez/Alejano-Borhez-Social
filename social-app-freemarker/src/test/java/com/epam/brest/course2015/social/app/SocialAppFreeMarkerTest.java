@@ -78,7 +78,7 @@ public class SocialAppFreeMarkerTest {
                 )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(cookie().value("uid", testToken))
+                .andExpect(cookie().value("uid", testToken + "1"))
                 .andExpect(cookie().doesNotExist("Referer"))
                 .andExpect(redirectedUrl(testRef))
         ;
