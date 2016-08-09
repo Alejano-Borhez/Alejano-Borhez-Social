@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +38,7 @@ public class SocialServiceImpl implements SocialService {
         this.imageDao = imageDao;
     }
 
-    public SocialServiceImpl () {};
+    public SocialServiceImpl () {}
     
     @Value("${addUser.notNullUser}")
     private String notNullUser;

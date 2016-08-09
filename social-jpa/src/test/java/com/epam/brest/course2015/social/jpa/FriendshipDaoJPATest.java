@@ -37,6 +37,8 @@ public class FriendshipDaoJPATest extends TestCase {
         friendshipDao.addFriendship(TEST_FRIEND_3, TEST_FRIEND_4);
         assertTrue(friendshipDao.isAFriend(TEST_FRIEND_3, TEST_FRIEND_4));
         assertTrue(friendshipDao.isAFriend(TEST_FRIEND_4, TEST_FRIEND_3));
+        friendshipDao.addFriendship(TEST_FRIEND_3, TEST_FRIEND_4);
+
     }
 
     @Test

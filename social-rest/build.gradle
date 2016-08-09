@@ -1,7 +1,7 @@
 gretty{
     port = 8081
-    contextPath = '/'
-    servletContainer = 'jetty9'
+    contextPath = '/social-rest/'
+    servletContainer = 'tomcat8'
 }
 
 dependencies {

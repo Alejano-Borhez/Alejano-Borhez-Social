@@ -11,6 +11,9 @@
 					
 			<div class="row-fluid">
 				<div class="login-box">
+                    <div class="icons">
+                        <a href="<@spring.url "/"/>"><i class="halflings-icon home"></i></a>
+                    </div>
 					<h2>Enter your email to reset a password</h2>
 					<form class="form-horizontal" name="email" action="reset" method="post">
 						<fieldset>

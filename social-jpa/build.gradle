@@ -1,7 +1,9 @@
 dependencies {
     compile project(':social-dao-api'),
-            'org.hsqldb:hsqldb:2.3.3',
-            'org.springframework.data:spring-data-jpa:1.10.2.RELEASE',
-            'org.hibernate:hibernate-entitymanager:5.0.2.Final',
-            'mysql:mysql-connector-java:5.1.38'
+            "org.hsqldb:hsqldb:2.3.3",
+            "org.springframework.data:spring-data-jpa:1.10.2.RELEASE",
+            "org.hibernate:hibernate-entitymanager:$hibernateVersion",
+            "mysql:mysql-connector-java:5.1.38",
+            "net.sf.ehcache:ehcache:2.10.1",
+            "org.springframework:spring-context-support:$springVersion"
 }

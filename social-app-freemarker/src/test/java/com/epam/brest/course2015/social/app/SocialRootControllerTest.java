@@ -20,7 +20,6 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.servlet.http.Cookie;
 
 import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;

@@ -25,8 +25,6 @@
                 <h2> <@spring.message code="users.total"/>: ${dto.totalUsers} </h2>
             </ul>
 
-           <!-- <button type="button" class="btn btn-default" onclick="gotoadduser()"> <@spring.message code="user.create"/> </button> -->
-
         </div>
 
         </div>

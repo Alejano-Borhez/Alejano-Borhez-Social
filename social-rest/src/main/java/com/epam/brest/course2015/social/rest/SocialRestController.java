@@ -165,12 +165,8 @@ public class SocialRestController {
         if (login != null &&
             password != null) {
                 User userByLogin = socialService.getUserByLogin(login);
-                if (userByLogin != null &&
-                    password.equals(userByLogin.getPassword())) {
-                    return true;
-                } else {
-                    return false;
-                }
+            return userByLogin != null &&
+                    password.equals(userByLogin.getPassword());
         } else {
             return false;
         }

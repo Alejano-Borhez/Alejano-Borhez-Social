@@ -32,6 +32,7 @@ allprojects {
         log4jVersion = '2.1'
         slf4jVersion = '1.7.21'
         checkstyleVersion = '7.0'
+        hibernateVersion = '5.1.0.Final'
     }
 
     repositories {
@@ -80,7 +81,7 @@ allprojects {
     project(':social-app-freemarker') {
 
         apply plugin: 'war'
-        apply plugin: 'jetty'
+        apply plugin: 'org.akhikhl.gretty'
 
         dependencies {
             compile "org.springframework:spring-webmvc:$springVersion",

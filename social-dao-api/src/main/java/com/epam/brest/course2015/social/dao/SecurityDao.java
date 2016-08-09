@@ -2,8 +2,6 @@ package com.epam.brest.course2015.social.dao;
 
 import com.epam.brest.course2015.social.core.SocialToken;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 /**
  * Created by alexander_borohov on 20.7.16.
  */

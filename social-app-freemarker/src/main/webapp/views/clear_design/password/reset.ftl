@@ -15,10 +15,9 @@
 			<div class="row-fluid">
 				<div class="login-box">
 					<div class="icons">
-						<a href="#"><i class="halflings-icon home"></i></a>
-						<a href="#"><i class="halflings-icon cog"></i></a>
+						<a href="<@spring.url "/"/>"><i class="halflings-icon home"></i></a>
 					</div>
-					<#if e_mail??>
+                    <#if e_mail??>
 					<h2> Check your e-mail box <strong>${e_mail}</strong> for password reset instructions </h2>
 					<#else>
 					<h2> You entered incorrect e-mail. Please try again </h2>

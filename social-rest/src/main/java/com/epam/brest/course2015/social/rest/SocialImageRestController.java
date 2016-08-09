@@ -1,18 +1,13 @@
 package com.epam.brest.course2015.social.rest;
 
-import com.epam.brest.course2015.social.core.Image;
 import com.epam.brest.course2015.social.service.SocialSecured;
 import com.epam.brest.course2015.social.service.SocialSecurity;
 import com.epam.brest.course2015.social.service.SocialService;
 import com.epam.brest.course2015.social.test.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Map;
 
 /**

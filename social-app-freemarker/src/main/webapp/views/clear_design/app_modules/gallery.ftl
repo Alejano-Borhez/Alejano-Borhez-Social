@@ -12,7 +12,7 @@
     </#list>
 </div>
 
-<form method="POST" action="gallery/upload?id=${dto.user.userId}" enctype="multipart/form-data">
+<form method="POST" action="<@spring.url "/gallery/upload?id=${dto.user.userId}"/>" enctype="multipart/form-data">
     <input type="file" name="file">
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">Upload</button>

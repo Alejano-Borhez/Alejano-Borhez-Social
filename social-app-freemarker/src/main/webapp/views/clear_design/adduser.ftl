@@ -5,7 +5,7 @@
 <#include "build_modules/head.ftl"/>
 
 <style type="text/css">
-    body { background: url(img/bg-login.jpg) !important; }
+    body { background: url("<@spring.url "/img/bg-login.jpg"/>") !important; }
 </style>
 
 <body>
@@ -13,8 +13,11 @@
 <div class="row-fluid">
     <div class="row-fluid">
         <div class="login-box">
+            <div class="icons">
+                <a href="<@spring.url "/"/>"><i class="halflings-icon home"></i></a>
+            </div>
             <h2>Create your account</h2>
-            <form class="form-horizontal" name="user" action="admin/addusersubmit" method="post">
+            <form class="form-horizontal" name="user" action="<@spring.url "/admin/addusersubmit"/>" method="post">
                 <fieldset>
                     <div class="input-prepend" title="Login">
                         <span class="add-on"><i class="halflings-icon user"></i></span>

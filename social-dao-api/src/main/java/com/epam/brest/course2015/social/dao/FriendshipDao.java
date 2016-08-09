@@ -1,7 +1,6 @@
 package com.epam.brest.course2015.social.dao;
 
 import com.epam.brest.course2015.social.core.Friendship;
-import com.epam.brest.course2015.social.core.User;
 
 import java.util.List;
 

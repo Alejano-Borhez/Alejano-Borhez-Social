@@ -1,6 +1,5 @@
 package com.epam.brest.course2015.social.service;
 
-import com.epam.brest.course2015.social.core.Friendship;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.dto.SocialDto;
 import org.junit.Test;

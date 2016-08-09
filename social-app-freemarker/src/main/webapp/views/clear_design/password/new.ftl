@@ -14,6 +14,9 @@
 					
 			<div class="row-fluid">
 				<div class="login-box">
+                    <div class="icons">
+                        <a href="<@spring.url "/"/>"><i class="halflings-icon home"></i></a>
+                    </div>
 					<#if dto??>
 					<#if reset??>
 					<h2> Hello ${dto.user.firstName} ${dto.user.lastName}! <br>

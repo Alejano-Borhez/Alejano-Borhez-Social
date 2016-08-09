@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true"
+         monitoring="autodetect"
+         dynamicConfig="true">
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <cache name="friends"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"/>
+
+    <cache name="noFriends"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"/>
+
+    <cache name="usersAll"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"/>
+
+    <cache name="userById"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="userByLogin"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="usersCount"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="userFriendsCount"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="userIdByToken"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="token"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="tokenById"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="imagesList"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="isAFriend"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <!-- Hibernate cache -->
+
+    <cache name="com.epam.brest.course2015.social.core.User"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="com.epam.brest.course2015.social.core.Image"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+    <cache name="com.epam.brest.course2015.social.core.SocialToken"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"/>
+
+</ehcache>

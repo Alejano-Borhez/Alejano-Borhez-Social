@@ -5,7 +5,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href=""><span>SIMPLE-SOCIAL</span></a>
+				<a class="brand" href="<@spring.url "/"/>"><span>SIMPLE-SOCIAL</span></a>
 
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">
@@ -21,8 +21,8 @@
 								<li class="dropdown-menu-title">
  									<span>Account Settings</span>
 								</li>
-                                    <li><a href="user"><i class="halflings-icon user"></i> Profile</a></li>
-								<li><a href="login"><i class="halflings-icon off"></i> Logout</a></li>
+                                    <li><a href="<@spring.url "/user"/>"><i class="halflings-icon user"></i> Profile</a></li>
+								<li><a href="<@spring.url "/login"/>"><i class="halflings-icon off"></i> Logout</a></li>
 							</ul>
 						</li>
 						<!-- end: User Dropdown -->

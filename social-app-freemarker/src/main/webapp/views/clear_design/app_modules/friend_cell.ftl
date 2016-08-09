@@ -6,7 +6,7 @@
     </div>
         <!-- Friends's credentials -->
     <div class="span3">
-        <strong>Name:</strong> <a href="user/${user.login}">${user.firstName} ${user.lastName}</a><br>
+        <strong>Name:</strong> <a href="<@spring.url "/user/${user.login}"/>">${user.firstName} ${user.lastName}</a><br>
         <strong>Since:</strong> ${user.createdDate?string('dd.MMMM')} <br>
     </div>
     <div class="span2">

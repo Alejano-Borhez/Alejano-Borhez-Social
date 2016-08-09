@@ -20,7 +20,7 @@
         <div class = "row-fluid well" style="padding-right:5px;">
             <div class="span2" ontablet="span6" ondesktop="span3">
                     <!-- User's avatar -->
-                    <img class="grayscale" src="${(dto.user.images[0].url)!"#"}"></img>
+                    <img class="grayscale" src="${(dto.user.images[0].url)!"img/vk.jpg"}"></img>
             </div>
                     <!-- User's credentials -->
             <div class="span3">
@@ -36,7 +36,7 @@
 
             <div class="span6 well" id="user_gallery">
                         <ul class="dashboard-list">
-                            <h2> Галерея пользователя: <a href="photo" title="Добавить фотографии"> <i class="icon-plus"></i></a> </h2>
+                            <h2> Галерея пользователя: <a href="<@spring.url "/photo"/>" title="Добавить фотографии"> <i class="icon-plus"></i></a> </h2>
                                 <#list dto.user.images as image>
                                         <div id="image-${image.imageId}" class="masonry-thumb">
                                             <a title="Click to delete" href="#" onclick="deleteImage(${image.imageId})">

@@ -5,12 +5,12 @@ import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.dao.FriendshipDao;
 import com.epam.brest.course2015.social.test.Logged;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ import java.util.List;
 public class FriendshipDaoJPA implements FriendshipDao {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Value("${friends.getAllFriendships}")
     private String getAllFriendship;
@@ -29,6 +29,12 @@ public class FriendshipDaoJPA implements FriendshipDao {
 
     @Override
     @Logged
+    @CacheEvict(cacheNames = {
+            "friends",
+            "noFriends",
+            "isAFriend"
+            },
+            allEntries = true)
     public void addFriendship(Integer id1, Integer id2) {
             User user1 = entityManager.find(User.class, id1);
             User user2 = entityManager.find(User.class, id2);
@@ -39,6 +45,7 @@ public class FriendshipDaoJPA implements FriendshipDao {
 
     @Override
     @Logged
+    @Cacheable("isAFriend")
     public boolean isAFriend(Integer id1, Integer id2) {
         User user11 = entityManager.find(User.class, id1);
         User user21 = entityManager.find(User.class, id2);
@@ -48,6 +55,12 @@ public class FriendshipDaoJPA implements FriendshipDao {
 
     @Override
     @Logged
+    @CacheEvict(cacheNames = {
+            "friends",
+            "noFriends",
+            "isAFriend"
+    },
+            allEntries = true)
     public void discardFriendship(Integer id1, Integer id2) {
         User user1 = entityManager.find(User.class, id1);
         User user2 = entityManager.find(User.class, id2);

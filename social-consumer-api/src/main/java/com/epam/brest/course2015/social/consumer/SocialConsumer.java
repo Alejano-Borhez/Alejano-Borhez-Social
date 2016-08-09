@@ -1,10 +1,7 @@
 package com.epam.brest.course2015.social.consumer;
 
-import com.epam.brest.course2015.social.core.Image;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.dto.SocialDto;
-
-import java.util.function.Supplier;
 
 /**
  * Created by alexander on 19.1.16.

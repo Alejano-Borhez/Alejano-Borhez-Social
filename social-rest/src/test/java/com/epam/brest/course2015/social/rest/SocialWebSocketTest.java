@@ -63,7 +63,7 @@ public class SocialWebSocketTest {
         headers.setDestination("/app/addeduser");
         headers.setSessionId("0");
         headers.setLogin("guest");
-        headers.setSessionAttributes(new HashMap<String, Object>());
+        headers.setSessionAttributes(new HashMap<>());
 //        Setting new User
         User user = new User();
         user.setFirstName("Alexander");
@@ -89,7 +89,7 @@ public class SocialWebSocketTest {
         headers.setSubscriptionId("0");
         headers.setDestination("/app/hello");
         headers.setSessionId("0");
-        headers.setSessionAttributes(new HashMap<String, Object>());
+        headers.setSessionAttributes(new HashMap<>());
 //        Setting test payload
         String hello = "Alex";
 //        Setting payload using new User object

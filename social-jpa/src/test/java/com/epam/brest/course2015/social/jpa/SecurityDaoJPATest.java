@@ -19,11 +19,12 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:test-spring-persistence-HSQL.xml"})
 @Transactional
+
 public class SecurityDaoJPATest {
     @Value("${test.token}")
-    private String testTokenId;
+    private String testToken;
     @Value("${test.token1}")
-    private String testTokenId2;
+    private String testToken1;
     @Value("${test.userId1}")
     private Integer testUserId;
     @Value("${test.role}")
@@ -33,10 +34,15 @@ public class SecurityDaoJPATest {
     @Before
     public void setUp() throws Exception {
         testSocialToken.setRole(testRole);
-        testSocialToken.setToken(testTokenId);
+        testSocialToken.setToken(testToken);
         testSocialToken.setUserId(testUserId);
 
     }
+
+//    @BeforeClass
+//    public static void noCache() throws Exception {
+//        System.setProperty("net.sf.ehcache.disabled", Boolean.TRUE.toString());
+//    }
 
     @Autowired
     private SecurityDao securityDao;
@@ -44,16 +50,16 @@ public class SecurityDaoJPATest {
     @Test
     public void addToken() throws Exception {
         securityDao.addToken(testSocialToken);
-        SocialToken token = securityDao.getToken(testTokenId);
+        SocialToken token = securityDao.getToken(testToken);
         assertEquals(token, testSocialToken);
     }
 
     @Test
     public void deleteToken() throws Exception {
-        SocialToken token = securityDao.getToken(testTokenId2);
+        SocialToken token = securityDao.getToken(testToken1);
         assertNotNull(token);
         securityDao.deleteToken(token);
-        token = securityDao.getToken(testTokenId2);
+        token = securityDao.getToken(testToken1);
         assertNull(token);
     }
 

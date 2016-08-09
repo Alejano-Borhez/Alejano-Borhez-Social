@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,13 +78,14 @@ public class UserDaoJPATest {
     }
 
 
-    @Test
+    @Test(expected = InvalidDataAccessApiUsageException.class)
     public void testDeleteUser() throws Exception {
         User user1 = userDao.getUserById(testId);
         assertNotNull(user1);
         userDao.deleteUser(testId);
         User user2 = userDao.getUserById(testId);
         assertNull(user2);
+        userDao.deleteUser(testId);
     }
 
     @Test
@@ -144,8 +146,8 @@ public class UserDaoJPATest {
 
     @Test
     public void testChangeLogin() throws Exception {
-        userDao.changeLogin(testId, testLogin);
-        assertEquals(testLogin, userDao.getUserById(testId).getLogin());
+        userDao.changeLogin(testId, testLogin + testLogin);
+        assertEquals(testLogin + testLogin, userDao.getUserById(testId).getLogin());
     }
 
     @Test

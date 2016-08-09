@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.jws.soap.SOAPBinding;
 import java.net.URI;
 
 import static org.easymock.EasyMock.*;

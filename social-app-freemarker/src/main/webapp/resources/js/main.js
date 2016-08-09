@@ -44,7 +44,7 @@ function deleteFriend(userId)
     if (confirm("Вы уверены, что хотите убрать пользователя № " + userId + " из друзей пользователя № " + id + "?"))
     {
     console.log('deleteFriendship, ' + userId);
-    var url = "friend/del" +  "?id2=" + userId;
+    var url = "del" +  "?id2=" + userId;
     $.ajax({
         type: 'GET',
         url: url,
@@ -61,7 +61,7 @@ function deleteFriend(userId)
 
 function addFriend(userId)
 {
-    var url = "friend/add" + "?id2=" + userId;
+    var url = "add" + "?id2=" + userId;
     console.log('addFriendship, ' + userId);
     $.ajax({
         type: 'GET',
@@ -122,7 +122,7 @@ function changePassword() {
     console.log('changePassword');
     var newPassword = prompt("Введите новый пароль", '');
     if (newPassword != null) {
-        var url = "user/change/password?param=" + newPassword;
+        var url = "change/password?param=" + newPassword;
     $.ajax({
         type: 'GET',
         url: url,
@@ -144,7 +144,7 @@ function changePassword() {
 function changeFirstName() {
     console.log('changeFirstName');
     var newName = prompt("Введите новое имя", '');
-    var url = "user/change/firstname?param=" + newName;
+    var url = "change/firstname?param=" + newName;
     if (newName != '') {
     $.ajax({
         type: 'GET',
@@ -168,7 +168,7 @@ function changeFirstName() {
 function changeLastName() {
     console.log('changeLastName');
     var newName = prompt("Введите новую фамилию", '');
-    var url = "user/change/lastname?param=" + newName;
+    var url = "change/lastname?param=" + newName;
     if (newName != '') {
     $.ajax({
         type: 'GET',

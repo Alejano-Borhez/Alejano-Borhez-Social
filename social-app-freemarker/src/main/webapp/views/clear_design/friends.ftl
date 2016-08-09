@@ -20,14 +20,14 @@
               <@spring.message code = "user.friends"/>
               <small> ${dto.user.firstName} ${dto.user.lastName} </small>
               <span class="badge">${dto.totalUsers}</span>
-              <span> <a href="friend/unknown" title="<@spring.message code ="user.addfriends"/>"> <i class="icon-plus"></i></a> </span>
+              <span> <a href="<@spring.url "/friend/unknown"/>" title="<@spring.message code ="user.addfriends"/>"> <i class="icon-plus"></i></a> </span>
             </h1>
         <div class = "row-fluid">
             <#include "app_modules/friend_cell.ftl"/>
         </div>
         <div class = "row-fluid">
             <div class = "span2">
-                <a class="btn btn-primary btn-block align-center" href="friend/unknown"><@spring.message code="friend.add"/></a>
+                <a class="btn btn-primary btn-block align-center" href="<@spring.url "/friend/unknown"/>"><@spring.message code="friend.add"/></a>
             </div>
         </div>
     </div>

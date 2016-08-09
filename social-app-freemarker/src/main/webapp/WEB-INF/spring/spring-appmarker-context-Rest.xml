@@ -91,7 +91,7 @@
     <aop:aspectj-autoproxy/>
 
     <!-- Social Logger implementation -->
-    <bean class="com.epam.brest.course2015.social.test.SocialLogger"/>
+    <!--<bean class="com.epam.brest.course2015.social.test.SocialLogger"/>-->
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="interceptors">
             <list>

@@ -5,6 +5,7 @@ import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.dao.ImageDao;
 import com.epam.brest.course2015.social.test.Logged;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -67,17 +68,8 @@ public class ImageDaoJPA implements ImageDao {
 
     @Override
     @Logged
+    @Cacheable("imagesList")
     public List<Image> getAllImagesOfAUser(Integer userId) {
-        /*List<Image> list = entityManager
-                .createQuery(selectImages, Image.class)
-                .setParameter("userId", userId)
-                .getResultList();*/
-        List<Image> list = entityManager
-                .find(
-                      User.class,
-                      userId
-                     )
-                .getImages();
-        return list;
+        return entityManager.find(User.class, userId).getImages();
     }
 }

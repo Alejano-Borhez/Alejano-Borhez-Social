@@ -1,7 +1,6 @@
 package com.epam.brest.course2015.social.consumer;
 
 import com.epam.brest.course2015.social.core.Image;
-import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.test.SocialLogger;
 import org.easymock.EasyMock;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -22,8 +21,7 @@ import org.springframework.web.client.RestTemplate;
 public class SocialConsumerTestContext {
     @Bean
     RestTemplate restTemplate() {
-        RestTemplate restTemplate = EasyMock.createMock(RestTemplate.class);
-        return restTemplate;
+        return EasyMock.createMock(RestTemplate.class);
     }
 
     @Bean
