@@ -64,7 +64,7 @@
 
 <#else>
 <div>
- Sorry, your
+<#include "app_modules/invalidtoken.ftl"/>
 </div>
 
 </#if>

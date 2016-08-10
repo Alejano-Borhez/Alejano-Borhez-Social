@@ -38,11 +38,30 @@ public class SocialUserController extends SocialController {
             }
         }
         setReferer(resp, req);
-        resp.sendRedirect("login");
+        resp.sendRedirect(getPath(req) + "/login");
         return mav;
     }
 
-
+    @RequestMapping("/find/{login}")
+    @Logged
+    public ModelAndView getUser(@CookieValue(name = "uid", required = false) Cookie cookie,
+                                @PathVariable("login") String userLogin,
+                                HttpServletRequest req,
+                                HttpServletResponse resp) throws IOException {
+        ModelAndView mav = new ModelAndView("user");
+        if (cookie != null) {
+            String token = cookie.getValue();
+            if (token != null) {
+                SocialDto dto = socialConsumer.getUserDto(token);
+                mav.addObject("dto", dto);
+                mav.addObject("mapping", "foreignusertab");
+                return mav;
+            }
+        }
+        setReferer(resp, req);
+        resp.sendRedirect(getPath(req) + "/login");
+        return mav;
+    }
 
     @RequestMapping("/add")
     @Logged
@@ -93,7 +112,7 @@ public class SocialUserController extends SocialController {
             }
         }
         setReferer(resp, req);
-        resp.sendRedirect("login");
+        resp.sendRedirect(getPath(req) + "/login");
         return mav;
     }
 
@@ -112,10 +131,9 @@ public class SocialUserController extends SocialController {
                 mav.addObject("mapping", "userstab");
                 return mav;
             }
-
         }
         setReferer(resp, req);
-        resp.sendRedirect("login");
+        resp.sendRedirect(getPath(req) + "/login");
         return mav;
     }
 

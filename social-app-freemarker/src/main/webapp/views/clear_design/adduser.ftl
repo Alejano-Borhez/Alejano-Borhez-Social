@@ -50,7 +50,7 @@
 
                     <div class="input-prepend" title="Age">
                         <span class="add-on"><i class="halflings-icon user"></i></span>
-                        <input class="input-large span10" name="age" id="age" type="number" required="true"/>
+                        <input class="input-large span10" name="age" id="age" type="number" required="true" placeholder="type age"/>
                     </div>
 
                     <div class="button-login">

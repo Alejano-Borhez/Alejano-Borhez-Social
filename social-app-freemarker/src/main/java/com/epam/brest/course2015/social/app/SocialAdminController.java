@@ -128,7 +128,7 @@ public class SocialAdminController extends SocialController {
             return mav;
         }
         // Redirection if User is not added to DataBase
-        resp.sendRedirect("../login");
+        resp.sendRedirect(getPath(req) + "/login");
         return null;
     }
 

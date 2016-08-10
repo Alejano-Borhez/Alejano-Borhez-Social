@@ -5,6 +5,7 @@
 <#include "build_modules/head.ftl"/>
 
 <body>
+<#if dto??>
 
 
 <div class="container-fluid-full">
@@ -38,7 +39,12 @@
 
 </div>
 
+<#else>
+<div>
+<#include "app_modules/invalidtoken.ftl"/>
+</div>
 
+</#if>
 </body>
 
 <#include "build_modules/footer.ftl"/>

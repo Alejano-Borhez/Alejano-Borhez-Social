@@ -151,9 +151,9 @@ public class SocialAdminControllerTest {
                 .params(userMap)
                 )
                 .andDo(print())
-                .andExpect(redirectedUrl("../login"))
+                .andExpect(redirectedUrl("http://localhost" + testUrl + "/login"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(header().string("Location", "../login"))
+                .andExpect(header().string("Location", "http://localhost" + testUrl + "/login"))
                 .andExpect(cookie().doesNotExist("uid"))
                 .andExpect(content().string(""));
 

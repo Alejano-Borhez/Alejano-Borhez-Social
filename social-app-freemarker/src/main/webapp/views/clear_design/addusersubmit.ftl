@@ -13,11 +13,11 @@
     <div class="row-fluid">
         <div class="login-box">
         <div class="row-fluid">
-                <h1>Congratulations! You created an account in our system.</h1>
+                <h1>Congratulations! You've created an account in our system.</h1>
         </div>
 
         <div class="row-fluid">
-                <h2>Check your email box ${email!"INVALID@MAIL"} for approving your account during next 24 hours</h2>
+                <h2 class="text.center">Check your email box ${email!"INVALID@MAIL"} for approving your account during next 24 hours</h2>
         </div>
 
         <div class="row-fluid">

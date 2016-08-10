@@ -40,7 +40,7 @@ public class SocialFriendController extends SocialController {
             }
         }
         setReferer(resp, req);
-        resp.sendRedirect("login");
+        resp.sendRedirect(getPath(req) + "/login");
         return mav;
     }
 
@@ -60,7 +60,7 @@ public class SocialFriendController extends SocialController {
             }
         }
         setReferer(resp, req);
-        resp.sendRedirect("login");
+        resp.sendRedirect(getPath(req) + "/login");
         return mav;
     }
 

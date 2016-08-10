@@ -144,7 +144,7 @@ function changePassword() {
 function changeFirstName() {
     console.log('changeFirstName');
     var newName = prompt("Введите новое имя", '');
-    var url = "change/firstname?param=" + newName;
+    var url = "user/change/firstname?param=" + newName;
     if (newName != '') {
     $.ajax({
         type: 'GET',

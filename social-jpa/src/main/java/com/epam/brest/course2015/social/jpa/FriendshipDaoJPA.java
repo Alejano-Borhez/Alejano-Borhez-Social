@@ -32,7 +32,9 @@ public class FriendshipDaoJPA implements FriendshipDao {
     @CacheEvict(cacheNames = {
             "friends",
             "noFriends",
-            "isAFriend"
+            "isAFriend",
+            "usersCount",
+            "userFriendsCount"
             },
             allEntries = true)
     public void addFriendship(Integer id1, Integer id2) {
@@ -58,7 +60,9 @@ public class FriendshipDaoJPA implements FriendshipDao {
     @CacheEvict(cacheNames = {
             "friends",
             "noFriends",
-            "isAFriend"
+            "isAFriend",
+            "usersCount",
+            "userFriendsCount"
     },
             allEntries = true)
     public void discardFriendship(Integer id1, Integer id2) {

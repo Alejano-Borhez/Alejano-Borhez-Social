@@ -1,3 +1,8 @@
+<#ftl output_format="HTML">
+
+<!doctype html>
+<meta charset="utf-8">
+
 <html>
     <head>
         <!-- Latest compiled and minified CSS -->

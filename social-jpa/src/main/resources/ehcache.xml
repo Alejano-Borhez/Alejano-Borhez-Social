@@ -23,10 +23,6 @@
            timeToLiveSeconds="600"
            maxElementsInMemory="10000"/>
 
-    <cache name="userByLogin"
-           timeToLiveSeconds="600"
-           maxElementsInMemory="10000"/>
-
     <cache name="usersCount"
            timeToLiveSeconds="600"
            maxElementsInMemory="10000"/>

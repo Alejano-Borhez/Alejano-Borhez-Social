@@ -17,37 +17,27 @@
 					<div class="icons">
 						<a href="<@spring.url "/"/>"><i class="halflings-icon home"></i></a>
 					</div>
+					<#if cause??>
+					<h2><mark> You've entered incorrect login or password </mark> </h2>
+					<#else>
 					<h2>Login to your account</h2>
-					<form class="form-horizontal" name="user" action="loginapprove" method="post">
-						<fieldset>
-							
-							<div class="input-prepend" title="Login">
-								<span class="add-on"><i class="halflings-icon user"></i></span>
-								<input class="input-large span10" name="login" id="login" type="text" placeholder="type login" required="true"/>
-							</div>
-							<div class="clearfix"></div>
+					</#if>
+                            <#include "app_modules/loginform.ftl"/>
 
-							<div class="input-prepend" title="Password">
-								<span class="add-on"><i class="halflings-icon lock"></i></span>
-								<input class="input-large span10" name="password" id="password" type="password" placeholder="type password" required="true"/>
-							</div>
-							<div class="clearfix"></div>
-							
-			<!--			<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label> -->
+                    <div class="row-fluid">
+                        <h3>Forgot Password?</h3>
+                        <p>
+                            No problem, <a href="<@spring.url "/admin/password/requestNew"/>">click here</a> to get a new password.
+                        </p>
+                        <br>
 
-							<div class="button-login">
-								<a class="btn btn-default" href="user/add">Sign Up</a>
+                        <h3>New to Simple-Social?</h3>
+                        <div class="button-login">
+                         <a class="btn btn-default" href="user/add">Sign Up</a>
+                        </div>
+					</div>
 
-								<button type="submit" class="btn btn-primary">Login</button>
-							</div>
-							<div class="clearfix"></div>
-					</form>
-					<hr>
 
-					<h3>Forgot Password?</h3>
-					<p>
-						No problem, <a href="<@spring.url "/admin/password/requestNew"/>">click here</a> to get a new password.
-					</p>
 
 				</div><!--/span-->
 			</div><!--/row-->

@@ -51,7 +51,7 @@ public class UserDaoJPA implements UserDao {
 
     @Override
     @Logged
-    @CacheEvict(cacheNames = {"userById", "userByLogin"}, allEntries = true)
+    @CacheEvict(cacheNames = {"userById"}, allEntries = true)
     public void changePassword(Integer id, String password) {
         User user = getUserById(id);
         user.setPassword(password);
@@ -60,7 +60,7 @@ public class UserDaoJPA implements UserDao {
 
     @Override
     @Logged
-    @CacheEvict(cacheNames = {"userById", "userByLogin"}, allEntries = true)
+    @CacheEvict(cacheNames = {"userById"}, allEntries = true)
     public void changeLogin(Integer id, String login) {
         User user = getUserById(id);
         user.setLogin(login);
@@ -69,7 +69,7 @@ public class UserDaoJPA implements UserDao {
 
     @Override
     @Logged
-    @CacheEvict(cacheNames = {"userById", "userByLogin"}, allEntries = true)
+    @CacheEvict(cacheNames = {"userById"}, allEntries = true)
     public void changeFirstName(Integer id, String firstName) {
         User user = getUserById(id);
         user.setFirstName(firstName);
@@ -78,7 +78,7 @@ public class UserDaoJPA implements UserDao {
 
     @Override
     @Logged
-    @CacheEvict(cacheNames = {"userById", "userByLogin"}, allEntries = true)
+    @CacheEvict(cacheNames = {"userById"}, allEntries = true)
     public void changeLastName(Integer id, String lastName) {
         User user = getUserById(id);
         user.setLastName(lastName);
@@ -108,7 +108,6 @@ public class UserDaoJPA implements UserDao {
             "noFriends",
             "usersAll",
             "userById",
-            "userByLogin",
             "imagesList",
             "tokenById",
             "token",
@@ -169,7 +168,6 @@ public class UserDaoJPA implements UserDao {
 
     @Override
     @Logged
-    @Cacheable(value = "userByLogin")
     public User getUserByLogin(String login) throws EmptyResultDataAccessException {
         try {
             return entityManager

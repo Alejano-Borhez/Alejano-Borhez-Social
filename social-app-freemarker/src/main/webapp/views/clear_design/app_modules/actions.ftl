@@ -1,7 +1,7 @@
 <#switch mapping>
     <#case "userstab">
 <!--<button type="button" class="btn btn-primary btn-block align-center" onclick="deleteUser(${user.userId})"><@spring.message code="user.delete"/></button> -->
-    <button type="button" class="btn btn-default btn-block" onclick="gotoUser(${user.userId})"><@spring.message code="user.change"/></button>
+<!--<button type="button" class="btn btn-default btn-block" onclick="gotoUser(${user.userId})"><@spring.message code="user.change"/></button>-->
     <#break>
     <#case "usertab">
         <button type="button" class="btn btn-primary btn-block align-center" onclick="deleteFriend(${user.userId})"><@spring.message code="friend.delete"/></button>

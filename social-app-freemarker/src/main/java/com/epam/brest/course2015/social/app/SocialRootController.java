@@ -50,15 +50,15 @@ public class SocialRootController extends SocialController {
 
     @RequestMapping("/login")
     @Logged
-    public ModelAndView login(HttpServletRequest req,
+    public ModelAndView login(@CookieValue(name = "cause", required = false) String cause,
+                              HttpServletRequest req,
                               HttpServletResponse resp) {
-        Cookie[] cookies = req.getCookies();
-        Cookie cookie1 = WebUtils.getCookie(req, "uid");
-
+        ModelAndView mav = new ModelAndView("login");
         Cookie cookie = new Cookie("uid", "");
         cookie.setMaxAge(0);
         resp.addCookie(cookie);
-        return new ModelAndView("login");
+        if (cause != null) mav.addObject("cause", cause);
+        return mav;
     }
 
     @RequestMapping(value = "/loginapprove", method = RequestMethod.POST)
@@ -79,6 +79,9 @@ public class SocialRootController extends SocialController {
             return (referer != null)? "redirect:" + referer: "redirect:user";
         }
         else {
+            Cookie cookie = new Cookie("cause", "invalidlogin");
+            cookie.setMaxAge(60*60*24);
+            resp.addCookie(cookie);
             // Proceed to Login Page
             return "redirect:/login";
         }

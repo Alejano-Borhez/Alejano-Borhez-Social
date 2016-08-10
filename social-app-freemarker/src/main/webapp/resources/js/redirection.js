@@ -1,8 +1,8 @@
 
 setTimeout ( function() {
-                var url = $.cookie("Referer");
+                var url = $.cookie("Referer").val();
                 if (url != null) {
-                window.location = $.cookie("Referer");
+                window.location = url;
                 } else {
                 window.location = "../user";
                 };

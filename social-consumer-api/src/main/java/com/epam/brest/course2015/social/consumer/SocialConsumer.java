@@ -8,13 +8,21 @@ import com.epam.brest.course2015.social.dto.SocialDto;
  */
 public interface SocialConsumer {
     String getToken(String login, String role);
+
     String tempTokenApprove(String token);
+
     SocialDto getUserDto(String token);
+
     SocialDto getAllFriends(String token);
+
     SocialDto getAllUsers(String token);
+
     SocialDto getAllUsersByDate(String token, String dateMin, String dateMax);
+
     SocialDto getAllNoFriendsOfAUser(String token);
+
     User emailApprove(String email);
+
     void changeUser(String token, String action, String newValue);
     boolean addUserSubmit(User user);
     void addFriendship(String token, Integer id2);

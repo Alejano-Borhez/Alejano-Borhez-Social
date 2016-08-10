@@ -1,2 +1,0 @@
-# JMeter generated Cookie file
-localhost	TRUE	/social	FALSE	0	uid	TEST_TOKEN5

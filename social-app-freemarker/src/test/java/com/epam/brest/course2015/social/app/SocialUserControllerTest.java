@@ -98,7 +98,7 @@ public class SocialUserControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("login"))
+                .andExpect(redirectedUrl(servletContext + "/login"))
                 .andExpect(cookie().value("Referer", testUrl))
         ;
 
@@ -116,7 +116,7 @@ public class SocialUserControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("login"))
+                .andExpect(redirectedUrl(servletContext + "/login"))
                 .andExpect(cookie().value("Referer", testUrl))
         ;
 
