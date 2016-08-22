@@ -18,9 +18,9 @@
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">300</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">50</stringProp>
-        <longProp name="ThreadGroup.start_time">1470399482000</longProp>
-        <longProp name="ThreadGroup.end_time">1470399482000</longProp>
+        <stringProp name="ThreadGroup.ramp_time">30</stringProp>
+        <longProp name="ThreadGroup.start_time">1470831925974</longProp>
+        <longProp name="ThreadGroup.end_time">1470831925974</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">300</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -395,7 +395,7 @@
           <stringProp name="CookieManager.implementation">org.apache.jmeter.protocol.http.control.HC4CookieHandler</stringProp>
         </CookieManager>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -426,7 +426,8 @@
               <idleTime>true</idleTime>
             </value>
           </objProp>
-          <stringProp name="filename">/home/alexander_borohov/work/projects/Alejano-Borhez-Social/jmeter/Sample testing/results.csv</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="RespTimeGraph.interval">500</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -438,11 +439,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">200</stringProp>
         <stringProp name="ThreadGroup.ramp_time">20</stringProp>
-        <longProp name="ThreadGroup.start_time">1470399482000</longProp>
-        <longProp name="ThreadGroup.end_time">1470399482000</longProp>
+        <longProp name="ThreadGroup.start_time">1470831916915</longProp>
+        <longProp name="ThreadGroup.end_time">1470831916915</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">100</stringProp>
-        <stringProp name="ThreadGroup.delay">50</stringProp>
+        <stringProp name="ThreadGroup.delay">100</stringProp>
       </ThreadGroup>
       <hashTree>
         <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="true"/>
@@ -538,7 +539,7 @@
                 <elementProp name="login" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.name">login</stringProp>
-                  <stringProp name="Argument.value">alejano_borhez</stringProp>
+                  <stringProp name="Argument.value">ivan</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -795,7 +796,42 @@
               <idleTime>true</idleTime>
             </value>
           </objProp>
-          <stringProp name="filename">/home/alexander_borohov/work/projects/Alejano-Borhez-Social/jmeter/Sample testing/results.csv</stringProp>
+          <stringProp name="filename">/home/alexander_borohov/work/projects/Alejano-Borhez-Social/jmeter/Sample testing/results-extreme.csv</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="RespTimeGraph.interval">500</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -807,11 +843,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">10</stringProp>
-        <longProp name="ThreadGroup.start_time">1470399482000</longProp>
-        <longProp name="ThreadGroup.end_time">1470399482000</longProp>
+        <longProp name="ThreadGroup.start_time">1470831909585</longProp>
+        <longProp name="ThreadGroup.end_time">1470831909585</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">100</stringProp>
-        <stringProp name="ThreadGroup.delay">30</stringProp>
+        <stringProp name="ThreadGroup.delay">50</stringProp>
       </ThreadGroup>
       <hashTree>
         <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="true"/>
@@ -1001,7 +1037,42 @@
               <idleTime>true</idleTime>
             </value>
           </objProp>
-          <stringProp name="filename">/home/alexander_borohov/work/projects/Alejano-Borhez-Social/jmeter/Sample testing/results.csv</stringProp>
+          <stringProp name="filename">/home/alexander_borohov/work/projects/Alejano-Borhez-Social/jmeter/Sample testing/results-change.csv</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="RespTimeGraph.interval">500</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
