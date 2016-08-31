@@ -29,7 +29,7 @@
 
     <!-- Spring message source for <@spring.message code=""> taglib -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:messages"/>
+        <property name="basename" value="messages"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
@@ -40,6 +40,7 @@
                 <value>classpath:social-app.properties</value>
                 <value>classpath:cdn.properties</value>
                 <value>classpath:security-roles.properties</value>
+                <value>classpath:email.properties</value>
             </list>
         </property>
     </bean>
@@ -85,9 +86,6 @@
         <property name="prettyPrint" value="true" />
     </bean>
 
-    <!-- Object mapper -->
-    <bean id="jackson2JsonObjectMapper" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-
     <aop:aspectj-autoproxy/>
 
     <!-- Social Logger implementation -->
@@ -105,14 +103,14 @@
         <property name="mailSender" ref="socialMailSender"/>
     </bean>
     <bean id="socialMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.gmail.com"/>
-        <property name="port" value="587"/>
-        <property name="username" value="alexander.borohov17@gmail.com"/>
-        <property name="password" value="alejano123"/>
+        <property name="host" value="${email.host}"/>
+        <property name="port" value="${email.port}"/>
+        <property name="username" value="${email.username}"/>
+        <property name="password" value="${email.password}"/>
         <property name="javaMailProperties">
             <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.auth">${email.smtp.auth}</prop>
+                <prop key="mail.smtp.starttls.enable">${email.smtp.starttls.enable}</prop>
             </props>
         </property>
     </bean>
