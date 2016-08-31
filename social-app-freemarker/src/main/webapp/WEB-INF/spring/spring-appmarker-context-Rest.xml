@@ -2,12 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/aop
@@ -17,15 +14,6 @@
     <context:component-scan base-package="com.epam.brest.course2015.social.app"/>
     <context:component-scan base-package="com.epam.brest.course2015.social.consumer"/>
     <context:component-scan base-package="com.epam.brest.course2015.social.test"/>
-
-    <mvc:annotation-driven/>
-
-    <!-- HTML static resources -->
-    <mvc:resources mapping="/css/**" location="/resources/bootstrap_metro/janux/css/"/>
-    <mvc:resources mapping="/js/**" location="/resources/bootstrap_metro/janux/js/"/>
-    <mvc:resources mapping="/resources/js/**" location="/resources/js/"/>
-    <mvc:resources mapping="/font/**" location="/resources/bootstrap_metro/janux/font/"/>
-    <mvc:resources mapping="/img/**" location="/resources/bootstrap_metro/janux/img/"/>
 
     <!-- Spring message source for <@spring.message code=""> taglib -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -71,25 +59,11 @@
         <property name="maxUploadSize" value="1073741824"/>
     </bean>
 
-    <!-- Spring servlet Mapping Adapter -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonConverter"/>
-            </list>
-        </property>
-    </bean>
-
-    <!-- Spring servlet message converters -->
-    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="supportedMediaTypes" value="application/json" />
-        <property name="prettyPrint" value="true" />
-    </bean>
-
     <aop:aspectj-autoproxy/>
 
     <!-- Social Logger implementation -->
-    <!--<bean class="com.epam.brest.course2015.social.test.SocialLogger"/>-->
+    <bean class="com.epam.brest.course2015.social.test.SocialLogger"/>
+
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="interceptors">
             <list>
@@ -115,6 +89,7 @@
         </property>
     </bean>
 
+    <!-- Freemarker email generator -->
     <bean id="freemarkerMailConfig" class="freemarker.template.Configuration">
         <property name="directoryForTemplateLoading" value="templates"/>
     </bean>

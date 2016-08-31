@@ -6,9 +6,32 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+		">
 
+    <beans:import resource="spring-security-context.xml"/>
+    <!-- Enable Spring MVC annotations -->
+    <annotation-driven/>
+    <!-- HTML static resources -->
+    <resources mapping="/css/**" location="/resources/bootstrap_metro/janux/css/"/>
+    <resources mapping="/js/**" location="/resources/bootstrap_metro/janux/js/"/>
+    <resources mapping="/resources/js/**" location="/resources/js/"/>
+    <resources mapping="/font/**" location="/resources/bootstrap_metro/janux/font/"/>
+    <resources mapping="/img/**" location="/resources/bootstrap_metro/janux/img/"/>
+
+    <!-- Spring servlet Mapping Adapter -->
+    <beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonConverter"/>
+            </list>
+        </property>
+    </beans:bean>
+
+    <!-- Spring servlet message converters -->
+    <beans:bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <beans:property name="supportedMediaTypes" value="application/json" />
+        <beans:property name="prettyPrint" value="true" />
+    </beans:bean>
 
 
 
