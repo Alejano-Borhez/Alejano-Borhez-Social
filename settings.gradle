@@ -11,3 +11,5 @@ include 'social-core',
         'social-app-freemarker',
         'social-security',
         'social-mail'
+include 'social-dao-myBatisImpl'
+

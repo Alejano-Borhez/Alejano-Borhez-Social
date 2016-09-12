@@ -1,0 +1,3 @@
+dependencies {
+    compile "org.mybatis:mybatis:$myBatisVersion", project(':social-dao-api')
+}
