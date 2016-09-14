@@ -2,7 +2,7 @@
     <#import "spring.ftl" as spring/>
     <!-- start: Meta -->
     	<meta charset="utf-8">
-    	<title> <@spring.message code="users.list"/> - ${(pageInfo.mapping)!""} - enhanced with Janux theme </title>
+    	<title> <@spring.message "users.list"/> - ${(pageInfo.mapping)!""} - enhanced with Janux theme </title>
     	<meta name="description" content="${(pageInfo.description)!"Simple Social Network - case study project"}">
     	<meta name="author" content="Alexander Borohov">
     	<meta name="keyword" content="${(pageInfo.keywords)!"simple social, java web"}">
