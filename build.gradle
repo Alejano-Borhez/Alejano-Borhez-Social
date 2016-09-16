@@ -23,18 +23,6 @@ allprojects {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    ext {
-        springVersion = '4.3.0.RELEASE'
-        cloudinaryVersion = '1.4.2'
-        junitVersion = '4.12'
-        easyMockVersion = '3.4'
-        jacksonDataBindVersion = '2.6.5'
-        log4jVersion = '2.1'
-        slf4jVersion = '1.7.21'
-        checkstyleVersion = '7.0'
-        hibernateVersion = '5.1.0.Final'
-    }
-
     repositories {
         mavenCentral()
     }
@@ -45,6 +33,12 @@ allprojects {
                    "org.springframework:spring-aspects:$springVersion",
                    "org.springframework:spring-jdbc:$springVersion"
     ]
+
+    List springSecurity = ["org.springframework.security:spring-security-core:$springSecurityVersion",
+                           "org.springframework.security:spring-security-web:$springSecurityVersion",
+                           "org.springframework.security:spring-security-config:$springSecurityVersion"
+    ]
+
 
     List test = ["org.springframework:spring-test:$springVersion",
                  "junit:junit:$junitVersion",
@@ -64,32 +58,40 @@ allprojects {
         testCompile test
     }
 
-    project(':social-rest') {
+}
 
-        apply plugin: 'war'
-        apply plugin: 'org.akhikhl.gretty'
+project(':social-rest') {
 
-        dependencies {
-            compile "org.springframework:spring-webmvc:$springVersion",
-                    "org.springframework:spring-web:$springVersion",
-                    "org.springframework:spring-messaging:$springVersion",
-                    "org.springframework:spring-websocket:$springVersion",
-                    "javax.servlet:javax.servlet-api:3.1.0"
-        }
+    apply plugin: 'war'
+    apply plugin: 'org.akhikhl.gretty'
+
+    dependencies {
+        compile "org.springframework:spring-webmvc:$springVersion",
+                "org.springframework:spring-web:$springVersion",
+                "org.springframework:spring-messaging:$springVersion",
+                "org.springframework:spring-websocket:$springVersion",
+                "javax.servlet:javax.servlet-api:3.1.0"
     }
+}
 
-    project(':social-app-freemarker') {
-
-        apply plugin: 'war'
-        apply plugin: 'org.akhikhl.gretty'
-
-        dependencies {
-            compile "org.springframework:spring-webmvc:$springVersion",
-                    "org.springframework:spring-web:$springVersion",
-                    "org.springframework:spring-messaging:$springVersion",
-                    "org.springframework:spring-websocket:$springVersion",
-                    "javax.servlet:javax.servlet-api:3.1.0"
-        }
+project(':social-security') {
+    dependencies {
+        compile "org.springframework.security:spring-security-core:$springSecurityVersion",
+                "org.springframework.security:spring-security-web:$springSecurityVersion",
+                "org.springframework.security:spring-security-config:$springSecurityVersion"
     }
+}
 
+project(':social-app-freemarker') {
+
+    apply plugin: 'war'
+    apply plugin: 'org.akhikhl.gretty'
+
+    dependencies {
+        compile "org.springframework:spring-webmvc:$springVersion",
+                "org.springframework:spring-web:$springVersion",
+                "org.springframework:spring-messaging:$springVersion",
+                "org.springframework:spring-websocket:$springVersion",
+                "javax.servlet:javax.servlet-api:3.1.0"
+    }
 }

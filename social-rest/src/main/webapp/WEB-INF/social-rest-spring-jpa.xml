@@ -122,5 +122,7 @@
         <property name="shared" value="true"/>
     </bean>
 
+    <bean id="provider" class="com.epam.brest.course2015.social.service.SocialSecurityServiceProvider"/>
+    <bean id="role" class="com.epam.brest.course2015.social.service.SocialRole"/>
 
 </beans>

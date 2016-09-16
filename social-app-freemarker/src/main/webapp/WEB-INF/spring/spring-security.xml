@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:u="http://www.springframework.org/schema/util"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <http auto-config="true"
+          use-expressions="true"
+          access-decision-manager-ref="myAccessDecisionManager"
+          authentication-manager-ref="authenticationManager">
+        <intercept-url pattern="/hello**" access="hasRole('${role.user}')"/>
+<!--        <form-login login-page="/hello/login"
+                    default-target-url="/"
+                    password-parameter="password"
+                    username-parameter="login"
+                    authentication-failure-url="/hello/login?failure=true"
+                    login-processing-url="/loginapprove"
+                    />-->
+        <logout delete-cookies="true" logout-success-url="/hello/login?logout=true"/>
+
+    </http>
+
+
+    <authentication-manager id="authenticationManager">
+
+        <authentication-provider user-service-ref="myUserService">
+            <!--<password-encoder base64="true" hash="md5"/>-->
+        </authentication-provider>
+    </authentication-manager>
+
+    <u:list id="votersList">
+        <b:bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
+        <b:bean class="org.springframework.security.access.vote.RoleVoter">
+            <b:property name="rolePrefix" value=""/>
+        </b:bean>
+    </u:list>
+
+    <b:bean id="myAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <b:constructor-arg ref="votersList"/>
+    </b:bean>
+
+    <b:bean id="myUserService" class="com.epam.brest.course2015.social.consumer.SocialSecurityConsumer"/>
+
+</b:beans>

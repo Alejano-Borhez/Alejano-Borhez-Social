@@ -13,6 +13,11 @@ import java.io.IOException;
  */
 public class SocialHeaderInterceptor implements ClientHttpRequestInterceptor {
     private static String role;
+    private static String securityToken;
+
+    public static void setSecurityToken(String securityToken) {
+        SocialHeaderInterceptor.securityToken = securityToken;
+    }
 
     public static void setRole(String role) {
         SocialHeaderInterceptor.role = role;
@@ -25,6 +30,7 @@ public class SocialHeaderInterceptor implements ClientHttpRequestInterceptor {
     throws IOException {
         HttpRequestWrapper wrapper = new HttpRequestWrapper(req);
         wrapper.getHeaders().set("Role", role);
+        wrapper.getHeaders().set("Security", securityToken);
         return execution.execute(req, body);
     }
 }

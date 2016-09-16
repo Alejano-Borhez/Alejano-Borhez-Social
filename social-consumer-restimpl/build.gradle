@@ -1,4 +1,5 @@
 dependencies {
     compile project(':social-consumer-api')
     compile "org.springframework:spring-web:$springVersion"
+    compile project(':social-security')
 }

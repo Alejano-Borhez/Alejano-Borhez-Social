@@ -9,9 +9,7 @@
 
 <div class="container-fluid-full">
 
-<h1> ${hello!"Hello"}, ${(dto.user.login)!""} </h1>
-
-<h2> ${header!"header"}, ${uid!""} </h2>
+<h1> ${hello!"Hello"}, ${(login)!""} </h1>
 
 <a href="hello"> Click here to go to Hello </a> <br>
 
