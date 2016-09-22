@@ -3,11 +3,6 @@ package com.epam.brest.course2015.social.jpa;
 import com.epam.brest.course2015.social.core.Friendship;
 import com.epam.brest.course2015.social.core.User;
 import com.epam.brest.course2015.social.dao.FriendshipDao;
-import com.epam.brest.course2015.social.test.Logged;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,7 +19,6 @@ public class FriendshipDaoJPA implements FriendshipDao {
     private EntityManager entityManager;
 
     @Override
-    @Logged
     public void addFriendship(Integer id1, Integer id2) {
             User user1 = entityManager.find(User.class, id1);
             User user2 = entityManager.find(User.class, id2);
@@ -34,7 +28,6 @@ public class FriendshipDaoJPA implements FriendshipDao {
     }
 
     @Override
-    @Logged
     public boolean isAFriend(Integer id1, Integer id2) {
         User user11 = entityManager.find(User.class, id1);
         User user21 = entityManager.find(User.class, id2);
@@ -42,7 +35,6 @@ public class FriendshipDaoJPA implements FriendshipDao {
     }
 
     @Override
-    @Logged
     public void discardFriendship(Integer id1, Integer id2) {
         User user1 = entityManager.find(User.class, id1);
         User user2 = entityManager.find(User.class, id2);
@@ -53,13 +45,11 @@ public class FriendshipDaoJPA implements FriendshipDao {
     }
 
     @Override
-    @Logged
     public List<Friendship> getAllFriendships() {
         return null;
     }
 
     @Override
-    @Logged
     public void discardAllFriendshipsOfAUser(Integer userId) {
 
     }

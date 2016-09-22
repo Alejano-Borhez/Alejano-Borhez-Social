@@ -1,6 +1,7 @@
 package com.epam.brest.course2015.social.dao;
 
 import com.epam.brest.course2015.social.core.Friendship;
+import com.epam.brest.course2015.social.test.Logged;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
