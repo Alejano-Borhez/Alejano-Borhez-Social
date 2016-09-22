@@ -38,7 +38,6 @@ public class UserDaoJPA implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    @Logged
     public Integer addUser(User user) {
         user.setCreatedDate(new Date());
         user.setUpdatedDate(new Date());
@@ -47,7 +46,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public void changePassword(Integer id, String password) {
         User user = getUserById(id);
         user.setPassword(password);
@@ -55,7 +53,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public void changeLogin(Integer id, String login) {
         User user = getUserById(id);
         user.setLogin(login);
@@ -63,7 +60,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public void changeFirstName(Integer id, String firstName) {
         User user = getUserById(id);
         user.setFirstName(firstName);
@@ -71,7 +67,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public void changeLastName(Integer id, String lastName) {
         User user = getUserById(id);
         user.setLastName(lastName);
@@ -79,7 +74,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public void addImage(Integer id, Image image) {
         User user = getUserById(id);
         user.getImages().add(image);
@@ -87,7 +81,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public void deleteImage(Integer id, Image image) {
         User user = getUserById(id);
         user.getImages().remove(image);
@@ -95,19 +88,16 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public void deleteUser(Integer id) {
             entityManager.remove(getUserById(id));
     }
 
     @Override
-    @Logged
     public List<User> getFriends(Integer id) {
         return getUserById(id).getFriends();
     }
 
     @Override
-    @Logged
     public List<User> getNoFriends(Integer id) {
         List<User> list = getUserById(id).getFriends();
         List<User> list1 = entityManager
@@ -119,7 +109,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public List<User> getAllUsers() {
         return entityManager
                 .createQuery(selectAllUsers, User.class)
@@ -127,7 +116,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public List<User> getAllUsers(Date dateMin, Date dateMax) {
         return   entityManager
                 .createQuery(SelectAllUsersByDate, User.class)
@@ -137,13 +125,11 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public User getUserById(Integer id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
-    @Logged
     public User getUserByLogin(String login) throws EmptyResultDataAccessException {
         try {
             return entityManager
@@ -157,7 +143,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public User getUserByEmail(String email) {
         try {
             return entityManager
@@ -171,7 +156,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public Integer getCountOfUsers() {
         Long count = (Long) entityManager
                 .createQuery(getCountOfUsers)
@@ -180,7 +164,6 @@ public class UserDaoJPA implements UserDao {
     }
 
     @Override
-    @Logged
     public Integer getCountOfUserFriends(Integer id) {
         try {
             return getUserById(id).getFriends().size();
