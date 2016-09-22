@@ -14,7 +14,7 @@
           use-expressions="true"
           access-decision-manager-ref="myAccessDecisionManager"
           authentication-manager-ref="authenticationManager">
-        <intercept-url pattern="/hello**" access="hasRole('${role.user}')"/>
+        <intercept-url pattern="/hello**" access="hasAuthority('${role.user}')"/>
 <!--        <form-login login-page="/hello/login"
                     default-target-url="/"
                     password-parameter="password"
@@ -23,12 +23,9 @@
                     login-processing-url="/loginapprove"
                     />-->
         <logout delete-cookies="true" logout-success-url="/hello/login?logout=true"/>
-
     </http>
 
-
     <authentication-manager id="authenticationManager">
-
         <authentication-provider user-service-ref="myUserService">
             <!--<password-encoder base64="true" hash="md5"/>-->
         </authentication-provider>
@@ -36,9 +33,6 @@
 
     <u:list id="votersList">
         <b:bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
-        <b:bean class="org.springframework.security.access.vote.RoleVoter">
-            <b:property name="rolePrefix" value=""/>
-        </b:bean>
     </u:list>
 
     <b:bean id="myAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">

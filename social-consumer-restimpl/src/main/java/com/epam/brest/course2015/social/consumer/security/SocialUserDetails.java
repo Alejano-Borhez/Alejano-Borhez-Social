@@ -1,5 +1,6 @@
-package com.epam.brest.course2015.social.consumer;
+package com.epam.brest.course2015.social.consumer.security;
 
+import com.epam.brest.course2015.social.consumer.SocialHeaderInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,9 +13,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by alexander_borohov on 15.9.16.
@@ -33,68 +32,61 @@ public class SocialUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SocialRole> socialRoles = new ArrayList<>();
-        SocialRole socialRole = new SocialRole(username);
+        Set<SocialRole> socialRoles = new HashSet<>();
+        SocialRole socialRole = new SocialRole();
         socialRoles.add(socialRole);
         return socialRoles;
     }
 
     @Override
     public String getPassword() {
-        return (String) restRequest("password", String.class);
+        return restRequest("password", "");
     }
 
     @Override
     public String getUsername() {
-        return (String) restRequest("username", String.class);
+        return restRequest("username", "");
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return (boolean) restRequest("accEnabled", boolean.class);
+        return restRequest("accEnabled", true);
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return (boolean) restRequest("accNonLocked", boolean.class);
+        return restRequest("accNonLocked", true);
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return (boolean) restRequest("credNonExpired", boolean.class);
+        return restRequest("credNonExpired", true);
     }
 
     @Override
     public boolean isEnabled() {
-        return (boolean) restRequest("isEnabled", boolean.class);
+        return restRequest("isEnabled", true);
     }
 
-    private Object restRequest (String parameter, Class tClass) {
+    private <T> T restRequest (String parameter, T type) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.set("username", username);
         SocialHeaderInterceptor.setSecurityToken("token");
         UriComponents uriComponents = UriComponentsBuilder
                 .fromHttpUrl(restPrefix)
-                .path("/security")
-                .pathSegment("/" + parameter)
+                .pathSegment("security")
+                .pathSegment(parameter)
                 .queryParams(params)
                 .build();
         String restUrl = uriComponents.toUriString();
-        Object result = restTemplate.getForObject(restUrl, tClass);
-        return result;
+        return (T) restTemplate.getForObject(restUrl, type.getClass());
     }
 
-    private class SocialRole implements GrantedAuthority, Serializable {
-
-        private String username;
-
-        SocialRole(String username) {
-            this.username = username;
-        }
+    private class SocialRole implements GrantedAuthority {
 
         @Override
         public String getAuthority() {
-            return (String) restRequest("authorities", String.class);
+            return restRequest("authorities", "");
         }
     }
 

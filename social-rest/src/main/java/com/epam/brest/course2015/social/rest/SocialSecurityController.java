@@ -25,7 +25,7 @@ public class SocialSecurityController {
     private UserDao userDao;
 
     @RequestMapping("/{options}")
-    public Object getPassword(HttpServletRequest request,
+    public Object getCredentials (HttpServletRequest request,
                               @RequestParam("username") String username,
                               @PathVariable("options") String options) {
         if (request.getHeader("Security") != null) {
@@ -37,7 +37,7 @@ public class SocialSecurityController {
                 case "accEnabled":
                     return (userDao.getUserByLogin(username) != null);
                 case "authorities":
-                    return securityDao.getTokenByUserId(userDao.getUserByLogin(username).getUserId()).getRole().toString();
+                    return securityDao.getTokenByUserId(userDao.getUserByLogin(username).getUserId()).getRole().getCode();
                 case "accNonLocked":
                     return (userDao.getUserByLogin(username) != null);
                 case "credNonExpired":
