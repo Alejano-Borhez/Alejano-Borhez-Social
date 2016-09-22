@@ -37,7 +37,7 @@ public class FriendshipDaoJPATest extends TestCase {
         friendshipDao.addFriendship(TEST_FRIEND_3, TEST_FRIEND_4);
         assertTrue(friendshipDao.isAFriend(TEST_FRIEND_3, TEST_FRIEND_4));
         assertTrue(friendshipDao.isAFriend(TEST_FRIEND_4, TEST_FRIEND_3));
-        friendshipDao.addFriendship(TEST_FRIEND_3, TEST_FRIEND_4);
+        friendshipDao.discardFriendship(TEST_FRIEND_3, TEST_FRIEND_4);
 
     }
 
@@ -61,6 +61,8 @@ public class FriendshipDaoJPATest extends TestCase {
         friendshipDao.discardFriendship(TEST_FRIEND_1, TEST_FRIEND_2);
         assertFalse(friendshipDao.isAFriend(TEST_FRIEND_1, TEST_FRIEND_2));
         assertFalse(friendshipDao.isAFriend(TEST_FRIEND_2, TEST_FRIEND_1));
+        friendshipDao.addFriendship(TEST_FRIEND_1, TEST_FRIEND_2);
+
     }
 
 //    @Test
