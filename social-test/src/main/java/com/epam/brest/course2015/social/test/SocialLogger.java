@@ -20,14 +20,11 @@ public class SocialLogger {
     private static final Logger LOGGER =
             LogManager.getLogger(SocialLogger.class.getName());
 
-    @Pointcut("execution" +
-            "(@com.epam.brest.course2015.social.test.Logged * *(..))" +
-            " && @annotation(logged)")
-    public void setLogged(Logged logged) { }
+    @Pointcut("within(com.epam.brest.course2015.social..*)")
+    public void setLogged() { }
 
-    @Around("setLogged(logged)")
-    public Object log(ProceedingJoinPoint joinPoint,
-                      Logged logged) throws Throwable {
+    @Around("setLogged()")
+    public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
         String clazz = joinPoint.getSignature().getDeclaringTypeName();
         clazz = clazz.substring(clazz.lastIndexOf(".")+1);
         String method = joinPoint.getSignature().getName();
