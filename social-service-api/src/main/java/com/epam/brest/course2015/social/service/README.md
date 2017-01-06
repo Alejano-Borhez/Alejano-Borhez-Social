@@ -24,7 +24,7 @@ And I go to kargerJournalPage
 Then I click search on kargerJournalPage
 ```
 
-In our project we have a handful of pre-defined methods that could be reused while writing a new story. To read about these methods visit [Jbehave methods](/src/main/java/com/epam/brest/course2015/social/service/README.md).<p>
+In our project we have a handful of pre-defined methods that could be reused while writing a new story. To read about these methods visit [Jbehave methods](/src/test/groovy/com/copyright/rup/rightslink/tests/steps/common/README.md).<p>
 To use this methods in your scenarios just write them, using your parameters<p>
 (**Note:** make sure that you use right starting keywords `Given, When, Then`. If you have two or more subsequent keywords, you can use And keyword)
 
