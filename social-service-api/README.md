@@ -11,6 +11,7 @@ This test automation framework provides an easy way to automate UI testing withi
 ##<a name="write-story"></a>How to write a story
 
 Story files are written in a human-readable format. They look like:
+
 ```jbehave story
 Narrative: As a USA user
 I want to perform some actions
@@ -22,6 +23,7 @@ Given As a USA user
 And I go to kargerJournalPage
 Then I click search on kargerJournalPage
 ```
+
 In our project we have a handful of pre-defined methods that could be reused while writing a new story. To read about these methods visit [Jbehave methods](rightslink-createAccount/src/test/groovy/com/copyright/rup/rightslink/tests/steps/common/README.md).<p>
 To use this methods in your scenarios just write them, using your parameters<p>
 (**Note:** make sure that you use right starting keywords `Given, When, Then`. If you have two or more subsequent keywords, you can use And keyword)
@@ -32,6 +34,7 @@ Besides pre-defined **methods** there are already pre-defined complete **stories
 - Credit a license
 
 To use any of stories as a pre-requisite to your story, just add **Given stories:** parameter after a Scenario keyword. For example:
+
 ```jbehave story
 Narrative: {description goes here}
 
@@ -79,6 +82,7 @@ Running an automated UI test is simple enough. Just do not forget all obligatory
 Here are some frequently used gradle commands to run tests:
 
 1. To run all scenarios in Story_B-27001.story with all included *GivenStories* in pre1 environment and using firefox:
+
   ```cmd
 ./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
  -Dqaa.story.filter= \
