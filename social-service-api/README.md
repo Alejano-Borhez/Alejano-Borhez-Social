@@ -10,7 +10,7 @@ This test automation framework provides an easy way to automate UI testing withi
 
 ##<a name="write-story"></a>How to write a story
 
-*.story files are written in a human-readable format. They look like:
+Story files are written in a human-readable format. They look like:
 ```jbehave story
 Narrative: As a USA user
 I want to perform some actions
