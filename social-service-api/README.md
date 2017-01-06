@@ -12,7 +12,7 @@ This test automation framework provides an easy way to automate UI testing withi
 
 Story files are written in a human-readable format. They look like:
 
-```jbehave story
+```
 Narrative: As a USA user
 I want to perform some actions
 To be sure that everything works
@@ -35,7 +35,7 @@ Besides pre-defined **methods** there are already pre-defined complete **stories
 
 To use any of stories as a pre-requisite to your story, just add **Given stories:** parameter after a Scenario keyword. For example:
 
-```jbehave story
+```
 Narrative: {description goes here}
 
 Scenario: {scenario name goes here}
@@ -83,7 +83,7 @@ Here are some frequently used gradle commands to run tests:
 
 1. To run all scenarios in Story_B-27001.story with all included *GivenStories* in pre1 environment and using firefox:
 
-  ```cmd
+```cmd
 ./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
  -Dqaa.story.filter= \
  -Dqaa.environment=pre1 \
