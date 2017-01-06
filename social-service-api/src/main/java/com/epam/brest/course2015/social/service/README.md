@@ -1,160 +1,110 @@
-#Smoke test automation for RightsLink
+##Pre-defined steps fot UI automation:
 
-This test automation framework provides an easy way to automate UI testing within Copyright projects.
+####<a name="1"></a>1. Given As a [$type](#given-as-a-type-user) user
 
-#####To create a new UI automation test you have to do only three simple steps:
+This method is used for initializing a user in the context of current test
 
-1. [Write your own story file](#write-story)
-2. [Create page abstractions for tested pages as a JSON file](#create-page)
-3. [Run your test using gradle wrapper command line](#run-story)
+All admins are pre-defined and are available before any test run.
+Customers are created at runtime so to initialize a customer you first have to create it.
 
-##<a name="write-story"></a>How to write a story
+Credentials of admin users depend on environment, and are persisted as JSON files
+in `../resources/com/copyright/rup/rightslink/tests/data/{ENV}` directory where {ENV} can be local, dev1, pre1
 
-Story files are written in a human-readable format. They look like:
-
-```
-Narrative: As a USA user
-I want to perform some actions
-To be sure that everything works
-
-Scenario: Make some actions 
-
-Given As a USA user
-And I go to kargerJournalPage
-Then I click search on kargerJournalPage
-```
-
-In our project we have a handful of pre-defined methods that could be reused while writing a new story. To read about these methods visit [Jbehave methods](/src/test/groovy/com/copyright/rup/rightslink/tests/steps/common/README.md).<p>
-To use this methods in your scenarios just write them, using your parameters<p>
-(**Note:** make sure that you use right starting keywords `Given, When, Then`. If you have two or more subsequent keywords, you can use And keyword)
-
-Besides pre-defined **methods** there are already pre-defined complete **stories**, such as:
-- Create a user
-- Place an order
-- Credit a license
-
-To use any of stories as a pre-requisite to your story, just add **Given stories:** parameter after a Scenario keyword. For example:
+Examples of a step definition:
 
 ```
-Narrative: {description goes here}
-
-Scenario: {scenario name goes here}
-
-GivenStories: [relative path to stories folder]/create/users/CreateAccount_CAN_Corp.story
-
-Given {step}
-When {step}
-Then {step}
-
+Given as a CCC_ADMIN user
+Given as a ELSEVIER_ADMIN user
+Given as a USA user
 ```
 
-Every new story should have *.story format and should be put to [`../src/resources/com/copyright/rup/rightslink/tests/stories`](src/resources/com/copyright/rup/rightslink/tests/stories) folder
+Parameters of a method:
+#####<a name="given-as-a-type-user"></a>$type
+Generrally, we use following user type as a parameter:
 
-To make your *.story syntax clear, you can also create composite steps. For more information [read this](src/test/groovy/com/copyright/rup/rightslink/tests/steps/specific/README.md).
+User's type | Value
+----------- | -------------
+customers   | USA, CH, DE, CAN
+publisher admins | AIP_ADMIN, ELSEVIER_ADMIN, KARGER_ADMIN, MVB_ADMIN
+CCC admins|CCC_ADMIN
 
-##<a name="create-page"></a>How to create a page abstraction
+####<a name="2"></a>2. Given I go to [$page](#given-i-go-page)
+This is method is used to navigate to a page in a browser.
 
-In our project we use JSON format for persisting page abstractions. Each page should contain these obligatory elements:
-- **"prefix"** - name of a environment-specific property that has http-prefix value (e.g. `"prefix": "web.prefix"` means that we have `web.prefix=http://dev100.copyright.com` in dev1.properties file)
-- **"suffix"** - name of a global property that has http-suffix value (e.g. for **myAccountPage**: `"suffix": "myAccount"` means that we have `myAccountPage=MyAccount` in globalTest.properties file) (altogether it means a resulting url: [http://dev100.copyright.com/MyAccount](http://dev100.copyright.com/MyAccount))
-- **"elements"** - collection of *element*s on a page. Every *element* must contain:
-  - **"by"** - type of selector, available values for now - *"id"*, *"name"*, *"xpath"*
-  - **"selector"** - value of a selector, e.g. *"deleteButton"* for *"id"*/*"name"* or *".//\*\[@id='viewOrdersLink']/a"* for *"xpath"*
-- <span name="buttons-collection">**"buttons"**</span> - collection of *button*s on a page. Every *button* must contain:
-  - **"by"** - analogous to *element*'s "by"
-  - **"selector"** - analogous to *element*'s "selector"
-- **"forms"** - collection of *form*s on a page. Every *form* must contain:
-  - **"by"** - analogous to *element*'s "by"
-  - **"selector"** - analogous to *element*'s "selector"
-  - **"type"** - type of input. Available values for now: *"check"*, *"radio"*, *"text"*, *"option"*. These names correspond to checkbox, radiobutton, text field or area and select input types accordingly.
-  
-Put your newly created page abstraction to `../src/resources/com/copyright/rup/rightslink/tests/pages` folder.
-  
-Before running any test a gradle task verifyPage is performed. This task validates every page abstraction against *schema.json* schema. If found any schema violations build will fail and tests won't be executed. You can run `./gradlew verifyPage` at any time to ensure that you've created correct page abstractions.
+Examples:
+> For page transactionLink.json we use<p>
+`Given I go to transactionLink`<p>
+> For page AIPJournalPage.json we use<p>
+`Given I go to AIPJournalPage`
 
-For convenience run `./gradlew cleanIdea` task to add a useful edit-time schema validation to your Idea project. Or manually add a schema and scope for it:
-`File | Settings | Languages & Frameworks | Schemas and DTDs | JSON Schema`
+Parameters of a method:
+#####<a name="given-i-go-page"></a>$page
+Name of a page abstraction (equal to a filename of a page *.json, e.g. for `transactionLink.json` we use `transactionLink`)
 
+Before using this method you have to be sure that page abstraction is created
+in `../src/resources/com/copyright/rup/rightslink/tests/pages` directory. See this [**readme**](rightslink-createAccount/README.md#create-page) for more info.
 
-##<a name="run-story"></a>How to run a UI automated story 
-Running an automated UI test is simple enough. Just do not forget all obligatory *qaa* JVM parameters: [properties info](#used-properties) 
+####<a name="3"></a>3. Then I click [$button](#then-i-click-button) on [$page](then-click-on-a-page)
+This method is used for clicking buttons on pages. Before using it be sure that you previously were on needed page. See [method](#2) for info about how to go to a page.
 
-Here are some frequently used gradle commands to run tests:
-
-1. To run all scenarios in Story_B-27001.story with all included *GivenStories* in pre1 environment and using firefox:
-
-```cmd
-./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
- -Dqaa.story.filter= \
- -Dqaa.environment=pre1 \
- -Dqaa.story.mask.inc=*27001* \
- -Dqaa.story.mask.exc= \
- -Dqaa.selenium.driver=firefox
-  ```
-2. The same but in dev1 environment and using chrome:
-```cmd
-./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
--Dqaa.story.filter= \
--Dqaa.environment=dev1 \
--Dqaa.story.mask.inc=*27001* \
--Dqaa.story.mask.exc= \
--Dqaa.selenium.driver=chrome \
--Dqaa.chrome.driver={path_to_chromedriver}
+Examples:
+```
+...
+Given I go to transactionLink
+Then I click search on transactionLink
+...
+Given I go to myAccountPage
+Then I click logout on myAccountPage
+...
+Given I go to createAccountPage
+Then I click 1 Proceed Registration on createAccountPage
+...
 ```
 
-3. To run a particular scenario in Story_B-27001.story with all included *GivenStories* (according to 1st scenario we create USA user and place MR order) for dev1 environment and using firefox:
-```cmd
-./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
--Dqaa.story.filter="+createUser USA,+placeOrder MR,+B-27001-1" \
--Dqaa.environment=dev1 \
--Dqaa.story.mask.inc=*27001* \
--Dqaa.story.mask.exc= \
--Dqaa.selenium.driver=firefox
+Parameters of a method:
+#####<a name="then-i-click-button"></a>$button
+
+Name of a button object in a page abstraction's [buttons collection](rightslink-createAccount/README.md#buttons-collection).
+
+Before using this method you have to be sure that your page abstraction is valid against used schema. See this [**readme**](rightslink-createAccount/README.md#create-page) for more info.
+#####<a name="then-click-on-a-page"></a>$page
+Analogous to [$page](#given-i-go-page)
+
+####<a name="4"></a>4.Given I log in to system on [$page](#i-login-to-page)
+This method provides common logic to perform SSO-login at any page.
+To use this method, follow these steps:
+1. Initialize a user by [method](#1)
+2. Add a button "login" to [buttons collection](rightslink-createAccount/README.md#buttons-collection) of your page abstraction
+3. Go to a page using [method](#2)
+
+Examples:
 ```
+...
+Given as a CCC_ADMIN user
+Then I go to CCCAdminPage
 
-4. To only create a DE user in dev1 environment using firefox:
-```cmd
-./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
--Dqaa.story.filter="+createUser DE" \
--Dqaa.environment=dev1 \
--Dqaa.story.mask.inc=Create* \
--Dqaa.story.mask.exc= \
--Dqaa.selenium.driver=firefox 
 ```
+Parameters of a method:
+#####<a name="i-login-to-page"></a>$page
+Analogous to [$page](#given-i-go-page)
 
-5. To only place ePrint order, using existing user and not creating a new one in pre1 environment using firefox:
-```cmd
-./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
--Dqaa.story.filter="-createUser,+placeOrder ePrint" \
--Dqaa.environment=pre1 \
--Dqaa.story.mask.inc=Smoke* \
--Dqaa.story.mask.exc= \
--Dqaa.selenium.driver=firefox 
+####<a name="5"></a>5.Then I check following elements on [$page](#i-check-on-page) : [$table](#i-check-table) 
+This method performs assertions of different types on the current page.
+
+To use this method, follow these steps:
+
+1. Initialize a user by [method](#1)
+2. Add a button "login" to [buttons collection](../README.md#buttons-collection) of your page abstraction
+3. Go to a page using [method](#2)
+
+Examples:
 ```
+...
+Given as a CCC_ADMIN user
+Then I go to CCCAdminPage
 
-6. To run a particular scenario in Story_B-27001.story without all included *GivenStories* (according to 1st scenario we already created USA user and placed MR order) for dev1 environment and using firefox:
-```cmd
-./gradlew rightslink-webapi:rightslink-createAccount:bddTest \
--Dqaa.story.filter="-createUser,-placeOrder,+B-27001-1" \
--Dqaa.environment=dev1 \
--Dqaa.story.mask.inc=*27001* \
--Dqaa.story.mask.exc= \
--Dqaa.selenium.driver=firefox
 ```
+Parameters of a method:
+#####<a name="i-login-to-page"></a>$page
+Analogous to [$page](#given-i-go-page)
 
-(**Note:** all created users, placed orders, licenses, invoices or credit memos are saved in `../build/resources/test/com/copyright/rup/rightslink/tests/data/{ENVIRONMENT}` folder as JSON files and can be re-used at any time for testing. Once you created a user or placed an order of the same type, it will overwritten by the newest version)
-
-###<a name="used-properties"></a>Used properties:
-#####qaa.environment
-'local' by default. Possible values: 'dev1', 'pre1', 'local'. This value determines what properties file is used for getting environment-specific properties such as url-prefixes and datasources. Also it specifies the folder to save to/read from created users, orders etc. 
-#####qaa.story.mask.inc
- '*' by default. This is JBehave's mask is used for running scenarios only in particular *.story files
-#####qaa.story.mask.exc
- '' by default. This is JBehave's mask used for excluding particular *.story files from running
-#####qaa.story.filter
- empty by default. Used for meta-filtering - JBehave's specific feature. In this project is used to include/exclude GivenStories and to run a particular scenario within a story. See examples of usage in [How to run a UI automated story](#run-story) section.
-#####qaa.selenium.driver
- 'firefox' by default. This option helps to use particular Selenium WebDriver implementation. Valid options: 'firefox', 'chrome', 'phantom'
- For 'chrome' you'll also have to add `qaa.chrome.driver` property
-#####qaa.chrome.driver
- Determines an absolute path to your local chrome web driver e.g. `/usr/local/bin/google-chrome`. You can download one at [chrome driver download](https://sites.google.com/a/chromium.org/chromedriver/downloads)
