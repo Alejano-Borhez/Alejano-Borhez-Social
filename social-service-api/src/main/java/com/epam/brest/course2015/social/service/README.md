@@ -42,9 +42,9 @@ Parameters of a method:
 Name of a page abstraction (equal to a filename of a page *.json, e.g. for `transactionLink.json` we use `transactionLink`)
 
 Before using this method you have to be sure that page abstraction is created
-in `../src/resources/com/copyright/rup/rightslink/tests/pages` directory. See this [**readme**](rightslink-createAccount/README.md#create-page) for more info.
+in `../src/resources/com/copyright/rup/rightslink/tests/pages` directory. See this [**readme**](../../../../../../../../../../social-service-api#create-page) for more info.
 
-####<a name="3"></a>3. Then I click [$button](#then-i-click-button) on [$page](then-click-on-a-page)
+####<a name="3"></a>3. Then I click [$button](#then-i-click-button) on [$page](#then-click-on-a-page)
 This method is used for clicking buttons on pages. Before using it be sure that you previously were on needed page. See [method](#2) for info about how to go to a page.
 
 Examples:
@@ -64,9 +64,9 @@ Then I click 1 Proceed Registration on createAccountPage
 Parameters of a method:
 #####<a name="then-i-click-button"></a>$button
 
-Name of a button object in a page abstraction's [buttons collection](rightslink-createAccount/README.md#buttons-collection).
+Name of a button object in a page abstraction's [buttons collection](../../../../../../../../../../social-service-api#buttons-collection).
 
-Before using this method you have to be sure that your page abstraction is valid against used schema. See this [**readme**](rightslink-createAccount/README.md#create-page) for more info.
+Before using this method you have to be sure that your page abstraction is valid against used schema. See this [**readme**](../../../../../../../../../../social-service-api#create-page) for more info.
 #####<a name="then-click-on-a-page"></a>$page
 Analogous to [$page](#given-i-go-page)
 
@@ -74,7 +74,7 @@ Analogous to [$page](#given-i-go-page)
 This method provides common logic to perform SSO-login at any page.
 To use this method, follow these steps:
 1. Initialize a user by [method](#1)
-2. Add a button "login" to [buttons collection](rightslink-createAccount/README.md#buttons-collection) of your page abstraction
+2. Add a button "login" to [buttons collection](../../../../../../../../../../social-service-api#buttons-collection) of your page abstraction
 3. Go to a page using [method](#2)
 
 Examples:
@@ -94,7 +94,7 @@ This method performs assertions of different types on the current page.
 To use this method, follow these steps:
 
 1. Initialize a user by [method](#1)
-2. Add a button "login" to [buttons collection](../README.md#buttons-collection) of your page abstraction
+2. Add a button "login" to [buttons collection](../../../../../../../../../../social-service-api#buttons-collection) of your page abstraction
 3. Go to a page using [method](#2)
 
 Examples:

@@ -60,7 +60,7 @@ In our project we use JSON format for persisting page abstractions. Each page sh
 - **"elements"** - collection of *element*s on a page. Every *element* must contain:
   - **"by"** - type of selector, available values for now - *"id"*, *"name"*, *"xpath"*
   - **"selector"** - value of a selector, e.g. *"deleteButton"* for *"id"*/*"name"* or *".//\*\[@id='viewOrdersLink']/a"* for *"xpath"*
-- <span name="buttons-collection">**"buttons"**</span> - collection of *button*s on a page. Every *button* must contain:
+- <a name="buttons-collection"></a>**"buttons"** - collection of *button*s on a page. Every *button* must contain:
   - **"by"** - analogous to *element*'s "by"
   - **"selector"** - analogous to *element*'s "selector"
 - **"forms"** - collection of *form*s on a page. Every *form* must contain:
